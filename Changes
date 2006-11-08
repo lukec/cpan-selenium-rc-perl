@@ -1,5 +1,64 @@
 Revision history for Perl extension Test::WWW::Selenium.
 
+1.10 - 
+ - Integrated latest functions available in Selenium-Core
+   - WWW/Selenium.pm is build directly from Core's iedoc.xml
+ - Retained backwards compatibility for deprecated core functions
+ - Cleaned up POD
+ - Check that caller has opened a page before running commands
+ - Open without args opens '/'
+ - Added auto_stop option (default on) to auto-close browser windows
+ - Remove old get_location function in favour of core builtin
+   get_location.  It returns the absolute location.
+
+1.04 - Fri Oct  6 19:02:30 PDT 2006
+ - Happy Canadian Thanksgiving!  I thank everyone who uses this.
+ - Documentation fixes from Frederic Buclin++
+ - Fixed WWW::Selenium example code
+ - Patch received from Paul Johnson++ improves:
+   - Error message for undefined methods
+   - Default test names
+   - whitespace and typo fixes
+ - Made default_names default to on
+ - Removed docs suggesting support for Java-style method names
+   (This hasn't worked since < 0.20)
+
+1.03 - Tue Jun 27 22:47:43 PDT 2006
+ - Unit tests don't test stderr using Test::Builder::Tester
+ - When the Test-Simple folks get T::B::Tester working better I'll 
+   re-enable these tests
+
+1.02 - Sat Jun 24 17:25:35 PDT 2006
+ - Added unit tests for all auto-generated functions
+ - fixed bugs where line numbers and file info wasn't reported
+ - fixed bug where test description was lost
+ - added get_location method to return relative location
+ - removed references to contains and lacks functions
+ - failed action_ok() doesn't die anymore, the test just fails
+
+1.01 - Thu Jun 22 13:57:33 PDT 2006
+ - No longer call WWW::Selenium::AUTOLOAD if method can't be 
+   found (rt bug #20042)
+ - Update sample Test::WWW::Selenium code to actually work 
+   (Thanks, Shane Landrum)
+
+1.00 - Mon Jun 12 08:53:18 PDT 2006
+ - This works well, so make it a stable 1.0 release
+ - Better fix for Encode.pm support (Kevin Jones)
+ - fixed unit tests when run under 5.8
+ - Fixed pod errors in WWW::Selenium
+
+0.24 - Sat May 27 18:08:17 PDT 2006
+    - add version to WWW::Selenium
+    - fixed Encode.pm support (Kevin Jones)
+    - fixed typo (Kevin Jones)
+
+0.22 - Sat May 27 18:08:17 PDT 2006
+    - Integrate Dan Fabulitch's latest lib/WWW/Selenium.pm
+    - made Encode dependency optional
+    - Changed Test::Builder comparators - this seems to work,
+      I hope it doesn't break for other people.
+
 0.21 - Fri Apr 21 00:37:23 PDT 2006
     - fixed MANIFEST to include additional tests
     - fixed pod coverage

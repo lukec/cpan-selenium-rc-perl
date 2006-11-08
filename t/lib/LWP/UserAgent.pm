@@ -1,6 +1,8 @@
 package LWP::UserAgent;
 use strict;
 use warnings;
+use Carp qw(confess);
+use HTTP::Response; # mocked
 
 # mock library for testing WWW::Selenium
 
@@ -17,8 +19,8 @@ sub new {
 sub request {
     my (undef, $req) = @_;
     $self->{req} = $req->{GET};
-    die "test driver should specify a response!" unless $self->{res};
-    return delete $self->{res};
+    $self->{res} ||= HTTP::Response->new(content => 'OK');
+    return delete $self->{res}
 }
 
 1;

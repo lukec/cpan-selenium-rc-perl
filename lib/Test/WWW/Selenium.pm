@@ -4,7 +4,7 @@ use strict;
 use base qw(WWW::Selenium);
 use Carp qw(croak);
 
-our $VERSION = '1.04';
+our $VERSION = '1.10';
 
 =head1 NAME
 
@@ -53,6 +53,20 @@ By calling the constructor with default_names set to a true value your
 tests will be given a reasonable name should you choose not to provide
 one of your own.
 
+=head1 ADDITIONAL METHODS
+
+Test::WWW::Selenium also provides some other handy testing functions
+that wrap WWW::Selenium commands:
+
+=over 4
+
+=item get_location
+
+Returns the relative location of the current page.  Works with
+_is, _like, ... methods.
+
+=back
+
 =cut
 
 use Test::More;
@@ -73,10 +87,8 @@ my %comparator = (
 # These commands don't require a locator
 # grep item lib/WWW/Selenium.pm | grep sel | grep \(\) | grep get
 my %no_locator = map { $_ => 1 }
-                qw(alert all_buttons all_fields all_links
-                	all_window_ids all_window_names all_window_titles
-                	body_text confirmation cookie html_source
-                	location log_messages prompt speed title);
+                qw(alert confirmation prompt absolute_location location
+                   title body_text all_buttons all_links all_fields);
 
 sub AUTOLOAD {
     my $name = $AUTOLOAD;
@@ -162,11 +174,6 @@ sub new {
     $self->{default_names} = $default_names;
     $self->start;
     return $self;
-}
-
-sub DESTROY {
-    my $self = shift;
-    $self->stop;
 }
 
 1;
