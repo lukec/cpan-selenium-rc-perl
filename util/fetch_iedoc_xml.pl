@@ -10,8 +10,12 @@ my $selenium_core_url = 'http://release.openqa.org/selenium-core/0.8.3/selenium-
 my $core_dir = fetch_and_extract($selenium_core_url);
 my $core_iedoc = "$core_dir/core/iedoc.xml";
 die "Can't find $core_iedoc" unless -e $core_iedoc;
-print "Copying $core_iedoc to iedoc.xml...\n";
-copy($core_iedoc => 'iedoc.xml') or die "Can't copy $core_iedoc to iedoc.xml: $!";
+
+rmtree 'target';
+mkdir 'target';
+my $iedoc_dest = 'target/iedoc.xml';
+print "Copying $core_iedoc to $iedoc_dest...\n";
+copy($core_iedoc => $iedoc_dest) or die "Can't copy $core_iedoc to ${iedoc_dest}: $!";
 exit;
 
 
