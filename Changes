@@ -1,5 +1,8 @@
 Revision history for Perl extension Test::WWW::Selenium.
 
+1.15 - Sun 23 Mar 2008 14:02:25 PDT
+ - allow set_timeout() to be called before open()
+
 1.14 - Tue Dec 11 12:45:34 PST 2007
  - fixed typo in Test::WWW::Selenium SYNOPSIS - thanks, Paul Puse
  - added missing dependency on URI::Escape - thanks, Peter (Stig) Edwards
