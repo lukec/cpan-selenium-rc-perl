@@ -229,6 +229,11 @@ browser-specific prompting.
 Defaults to true, and will attempt to close the browser if the object
 goes out of scope and stop hasn't been called.
 
+=item * C<keep_alive>
+
+Number of connections LWP should cache. This is just a minor speed
+improvement. Defaults to 5.
+
 =back
 
 =cut
@@ -240,6 +245,8 @@ sub new {
                  port => 4444,
                  auto_stop => 1,
                  browser_start_command => delete $args{browser} || '*firefox',
+                 _ua => undef,
+                 keep_alive => 5,
                  %args,
                };
     croak 'browser_url is mandatory!' unless $self->{browser_url};
@@ -293,7 +300,12 @@ sub do_command {
 
     # We use the full version of LWP to make sure we issue an 
     # HTTP 1.1 request (SRC-25)
-    my $ua = LWP::UserAgent->new;
+    
+    if(!$self->{_ua}){
+        $self->{_ua} = LWP::UserAgent->new(keep_alive => $self->{keep_alive});
+    }
+
+    my $ua = $self->{_ua};
     my $response = $ua->request( HTTP::Request->new(GET => $fullurl) );
     my $result;
     if ($response->is_success) {
