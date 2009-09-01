@@ -192,6 +192,8 @@ Maintained by Luke Closs <lukec@cpan.org>
 
 Originally by Mattia Barbon <mbarbon@cpan.org>
 
+Other contributors: Dan Dascalescu, Scott McWhirter.
+
 =head1 LICENSE
 
 Copyright (c) 2006 Luke Closs <lukec@cpan.org>
