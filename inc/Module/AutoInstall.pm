@@ -7,7 +7,7 @@ use ExtUtils::MakeMaker ();
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '1.02';
+	$VERSION = '1.03';
 }
 
 # special map on pre-defined feature sets
@@ -18,7 +18,9 @@ my %FeatureMap = (
 
 # various lexical flags
 my ( @Missing, @Existing,  %DisabledTests, $UnderCPAN,     $HasCPANPLUS );
-my ( $Config,  $CheckOnly, $SkipInstall,   $AcceptDefault, $TestOnly );
+my (
+    $Config, $CheckOnly, $SkipInstall, $AcceptDefault, $TestOnly, $AllDeps
+);
 my ( $PostambleActions, $PostambleUsed );
 
 # See if it's a testing or non-interactive session
@@ -73,6 +75,9 @@ sub _init {
         elsif ( $arg =~ /^--test(?:only)?$/ ) {
             $TestOnly = 1;
         }
+        elsif ( $arg =~ /^--all(?:deps)?$/ ) {
+            $AllDeps = 1;
+        }
     }
 }
 
@@ -114,6 +119,13 @@ sub import {
               grep { /^[^\-]/ or /^-core$/i } keys %{ +{@args} }
         )[0]
     );
+
+    # We want to know if we're under CPAN early to avoid prompting, but
+    # if we aren't going to try and install anything anyway then skip the
+    # check entirely since we don't want to have to load (and configure)
+    # an old CPAN just for a cosmetic message
+
+    $UnderCPAN = _check_lock(1) unless $SkipInstall;
 
     while ( my ( $feature, $modules ) = splice( @args, 0, 2 ) ) {
         my ( @required, @tests, @skiptests );
@@ -163,15 +175,24 @@ sub import {
             }
 
             # XXX: check for conflicts and uninstalls(!) them.
-            if (
-                defined( my $cur = _version_check( _load($mod), $arg ||= 0 ) ) )
+            my $cur = _load($mod);
+            if (_version_cmp ($cur, $arg) >= 0)
             {
                 print "loaded. ($cur" . ( $arg ? " >= $arg" : '' ) . ")\n";
                 push @Existing, $mod => $arg;
                 $DisabledTests{$_} = 1 for map { glob($_) } @skiptests;
             }
             else {
-                print "missing." . ( $arg ? " (would need $arg)" : '' ) . "\n";
+                if (not defined $cur)   # indeed missing
+                {
+                    print "missing." . ( $arg ? " (would need $arg)" : '' ) . "\n";
+                }
+                else
+                {
+                    # no need to check $arg as _version_cmp ($cur, undef) would satisfy >= above
+                    print "too old. ($cur < $arg)\n";
+                }
+
                 push @required, $mod => $arg;
             }
         }
@@ -184,6 +205,8 @@ sub import {
             !$SkipInstall
             and (
                 $CheckOnly
+                or ($mandatory and $UnderCPAN)
+                or $AllDeps
                 or _prompt(
                     qq{==> Auto-install the }
                       . ( @required / 2 )
@@ -214,8 +237,6 @@ sub import {
         }
     }
 
-    _check_lock();    # check for $UnderCPAN
-
     if ( @Missing and not( $CheckOnly or $UnderCPAN ) ) {
         require Config;
         print
@@ -234,10 +255,38 @@ sub import {
     *{'main::WriteMakefile'} = \&Write if caller(0) eq 'main';
 }
 
-# CPAN.pm is non-reentrant, so check if we're under it and have no CPANPLUS
+sub _running_under {
+    my $thing = shift;
+    print <<"END_MESSAGE";
+*** Since we're running under ${thing}, I'll just let it take care
+    of the dependency's installation later.
+END_MESSAGE
+    return 1;
+}
+
+# Check to see if we are currently running under CPAN.pm and/or CPANPLUS;
+# if we are, then we simply let it taking care of our dependencies
 sub _check_lock {
-    return unless @Missing;
-    _load_cpan();
+    return unless @Missing or @_;
+
+    my $cpan_env = $ENV{PERL5_CPAN_IS_RUNNING};
+
+    if ($ENV{PERL5_CPANPLUS_IS_RUNNING}) {
+        return _running_under($cpan_env ? 'CPAN' : 'CPANPLUS');
+    }
+
+    require CPAN;
+
+    if ($CPAN::VERSION > '1.89') {
+        if ($cpan_env) {
+            return _running_under('CPAN');
+        }
+        return; # CPAN.pm new enough, don't need to check further
+    }
+
+    # last ditch attempt, this -will- configure CPAN, very sorry
+
+    _load_cpan(1); # force initialize even though it's already loaded
 
     # Find the CPAN lock-file
     my $lock = MM->catfile( $CPAN::Config->{cpan_home}, ".lock" );
@@ -256,10 +305,11 @@ sub _check_lock {
 *** Since we're running under CPAN, I'll just let it take care
     of the dependency's installation later.
 END_MESSAGE
-        $UnderCPAN = 1;
+        return 1;
     }
 
     close LOCK;
+    return;
 }
 
 sub install {
@@ -272,7 +322,7 @@ sub install {
     while ( my ( $pkg, $ver ) = splice( @_, 0, 2 ) ) {
 
         # grep out those already installed
-        if ( defined( _version_check( _load($pkg), $ver ) ) ) {
+        if ( _version_cmp( _load($pkg), $ver ) >= 0 ) {
             push @installed, $pkg;
         }
         else {
@@ -280,7 +330,8 @@ sub install {
         }
     }
 
-    return @installed unless @modules;    # nothing to do
+    return @installed unless @modules;  # nothing to do
+    return @installed if _check_lock(); # defer to the CPAN shell
 
     print "*** Installing dependencies...\n";
 
@@ -300,7 +351,7 @@ sub install {
         @modules = @newmod;
     }
 
-    if ( ! $UnderCPAN and _has_cpanplus() ) {
+    if ( _has_cpanplus() and not $ENV{PERL_AUTOINSTALL_PREFER_CPAN} ) {
         _install_cpanplus( \@modules, \@config );
     } else {
         _install_cpan( \@modules, \@config );
@@ -310,7 +361,7 @@ sub install {
 
     # see if we have successfully installed them
     while ( my ( $pkg, $ver ) = splice( @modules, 0, 2 ) ) {
-        if ( defined( _version_check( _load($pkg), $ver ) ) ) {
+        if ( _version_cmp( _load($pkg), $ver ) >= 0 ) {
             push @installed, $pkg;
         }
         elsif ( $args{do_once} and open( FAILED, '>> .#autoinstall.failed' ) ) {
@@ -365,7 +416,7 @@ sub _install_cpanplus {
         my $success;
         my $obj = $modtree->{$pkg};
 
-        if ( $obj and defined( _version_check( $obj->{version}, $ver ) ) ) {
+        if ( $obj and _version_cmp( $obj->{version}, $ver ) >= 0 ) {
             my $pathname = $pkg;
             $pathname =~ s/::/\\W/;
 
@@ -458,7 +509,7 @@ sub _install_cpan {
         my $obj     = CPAN::Shell->expand( Module => $pkg );
         my $success = 0;
 
-        if ( $obj and defined( _version_check( $obj->cpan_version, $ver ) ) ) {
+        if ( $obj and _version_cmp( $obj->cpan_version, $ver ) >= 0 ) {
             my $pathname = $pkg;
             $pathname =~ s/::/\\W/;
 
@@ -466,9 +517,9 @@ sub _install_cpan {
                 delete $INC{$inc};
             }
 
-            $obj->force('install') if $args{force};
-
-            my $rv = $obj->install || eval {
+            my $rv = $args{force} ? CPAN::Shell->force( install => $pkg )
+                                  : CPAN::Shell->install($pkg);
+            $rv ||= eval {
                 $CPAN::META->instance( 'CPAN::Distribution', $obj->cpan_file, )
                   ->{install}
                   if $CPAN::META;
@@ -522,7 +573,7 @@ sub _update_to {
     my $ver   = shift;
 
     return
-      if defined( _version_check( _load($class), $ver ) );  # no need to upgrade
+      if _version_cmp( _load($class), $ver ) >= 0;  # no need to upgrade
 
     if (
         _prompt( "==> A newer version of $class ($ver) is required. Install?",
@@ -619,7 +670,7 @@ sub _load {
 
 # Load CPAN.pm and it's configuration
 sub _load_cpan {
-    return if $CPAN::VERSION;
+    return if $CPAN::VERSION and $CPAN::Config and not @_;
     require CPAN;
     if ( $CPAN::HandleConfig::VERSION ) {
         # Newer versions of CPAN have a HandleConfig module
@@ -631,27 +682,28 @@ sub _load_cpan {
 }
 
 # compare two versions, either use Sort::Versions or plain comparison
-sub _version_check {
+# return values same as <=>
+sub _version_cmp {
     my ( $cur, $min ) = @_;
-    return unless defined $cur;
+    return -1 unless defined $cur;  # if 0 keep comparing
+    return 1 unless $min;
 
     $cur =~ s/\s+$//;
 
     # check for version numbers that are not in decimal format
     if ( ref($cur) or ref($min) or $cur =~ /v|\..*\./ or $min =~ /v|\..*\./ ) {
-        if ( $version::VERSION or defined( _load('version') ) ) {
+        if ( ( $version::VERSION or defined( _load('version') )) and
+             version->can('new') 
+            ) {
 
             # use version.pm if it is installed.
-            return (
-                ( version->new($cur) >= version->new($min) ) ? $cur : undef );
+            return version->new($cur) <=> version->new($min);
         }
         elsif ( $Sort::Versions::VERSION or defined( _load('Sort::Versions') ) )
         {
 
             # use Sort::Versions as the sorting algorithm for a.b.c versions
-            return ( ( Sort::Versions::versioncmp( $cur, $min ) != -1 )
-                ? $cur
-                : undef );
+            return Sort::Versions::versioncmp( $cur, $min );
         }
 
         warn "Cannot reliably compare non-decimal formatted versions.\n"
@@ -660,7 +712,7 @@ sub _version_check {
 
     # plain comparison
     local $^W = 0;    # shuts off 'not numeric' bugs
-    return ( $cur >= $min ? $cur : undef );
+    return $cur <=> $min;
 }
 
 # nothing; this usage is deprecated.
@@ -691,7 +743,7 @@ sub _make_args {
       if $Config;
 
     $PostambleActions = (
-        $missing
+        ($missing and not $UnderCPAN)
         ? "\$(PERL) $0 --config=$config --installdeps=$missing"
         : "\$(NOECHO) \$(NOOP)"
     );
@@ -731,7 +783,7 @@ sub Write {
 sub postamble {
     $PostambleUsed = 1;
 
-    return << ".";
+    return <<"END_MAKE";
 
 config :: installdeps
 \t\$(NOECHO) \$(NOOP)
@@ -742,7 +794,7 @@ checkdeps ::
 installdeps ::
 \t$PostambleActions
 
-.
+END_MAKE
 
 }
 
@@ -750,4 +802,4 @@ installdeps ::
 
 __END__
 
-#line 988
+#line 1056

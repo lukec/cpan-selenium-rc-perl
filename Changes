@@ -1,5 +1,8 @@
 Revision history for Perl extension Test::WWW::Selenium.
 
+1.18 -
+  - Update Module::Install
+
 1.17 - Tue 30 Dec 2008 00:12:53 PST
  - Allow no_locator methods to be subclassable
    - Thanks to Michael Hendricks of Grant Street Group.
