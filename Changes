@@ -2,6 +2,8 @@ Revision history for Perl extension Test::WWW::Selenium.
 
 1.18 -
   - Update Module::Install
+  - Ensure that do_command reuses LWP objects and caches 
+    connections for performance (konobi)
 
 1.17 - Tue 30 Dec 2008 00:12:53 PST
  - Allow no_locator methods to be subclassable
