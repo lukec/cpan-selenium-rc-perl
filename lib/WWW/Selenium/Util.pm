@@ -32,10 +32,10 @@ in your test scripts:
 =head2 server_is_running( $host, $port )
 
 Returns true if a Selenium server is running.  The host and port 
-parameters are optional, and default to localhost:4444
+parameters are optional, and default to C<localhost:4444>.
 
-Environment vars SRC_HOST and SRC_PORT can also be used to determine
-the server to check.
+Environment vars C<SRC_HOST> and C<SRC_PORT> can also be used to
+determine the server to check.
 
 =cut
 
@@ -64,4 +64,4 @@ Written by Luke Closs <selenium@5thplane.com>
 Copyright (c) 2007 Luke Closs <lukec@cpan.org>
 
 This program is free software; you can redistribute it and/or
-modify it under the same terms as Perl itself
+modify it under the same terms as Perl itself.
