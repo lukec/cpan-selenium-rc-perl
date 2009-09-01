@@ -1,13 +1,14 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 28;
+use Test::More tests => 50;
 use Test::Exception;
 use Test::Mock::LWP;
 
 BEGIN {
     use lib 'lib';
     use_ok 'WWW::Selenium';
+    use_ok 'Test::WWW::Selenium';
 }
 
 Good_usage: {
@@ -26,9 +27,8 @@ Good_usage: {
     Start_up_selenium: {
         $Mock_resp->mock( content => sub {'OK,SESSION_ID'} );
         $sel->start;
-        my $url = 'http://localhost:4444/selenium-server/driver/?'
-            . 'cmd=getNewBrowserSession&1=*firefox&2=http%3A%2F%2Ffoo.com';
-        is_deeply $Mock_req->new_args, [ 'HTTP::Request', 'GET', $url ];
+        is $sel->{session_id}, 'SESSION_ID';
+        req_ok('cmd=getNewBrowserSession&1=*firefox&2=http%3A%2F%2Ffoo.com&3=');
         $Mock_resp->mock( content => sub { 'OK' } );
         $sel->open;
     }
@@ -36,18 +36,14 @@ Good_usage: {
     Execute_command: {
         $Mock_resp->mock( content => sub { 'OK,Some Title' } );
         is $sel->get_title, 'Some Title';
-        my $url = 'http://localhost:4444/selenium-server/driver/?cmd=getTitle'
-            . '&sessionId=SESSION_ID';
-        is_deeply $Mock_req->new_args, ['HTTP::Request', 'GET', $url];
+        req_ok('cmd=getTitle&sessionId=SESSION_ID');
     }
 
     Close_down_selenium: {
         $Mock_resp->mock( content => sub { 'OK' } );
         $sel->stop;
         is $sel->{session_id}, undef;
-        my $url = 'http://localhost:4444/selenium-server/driver/?'
-            . 'cmd=testComplete&sessionId=SESSION_ID';
-        is_deeply $Mock_req->new_args, ['HTTP::Request', 'GET', $url];
+        req_ok('cmd=testComplete&sessionId=SESSION_ID');
     }
 }
 
@@ -118,12 +114,40 @@ Stop_called_twice: {
     my $sel = WWW::Selenium->new( browser_url => 'http://foo.com' );
     $Mock_resp->mock( content => sub { 'OK,SESSION_ID' } );
     $sel->start;
+    is $sel->{session_id}, 'SESSION_ID';
     $Mock_resp->mock( content => sub { 'OK' } );
     $sel->stop;
     is $sel->{session_id}, undef;
-    my $url = 'http://localhost:4444/selenium-server/driver/'
-                   . '?cmd=testComplete&sessionId=SESSION_ID';
-    is_deeply $Mock_req->new_args, [ 'HTTP::Request', 'GET', $url ];
+    req_ok('cmd=testComplete&sessionId=SESSION_ID');
     $sel->stop;
     is_deeply $Mock_req->new_args, undef;
 }
+
+With_session_id: {
+    my $sel = Test::WWW::Selenium->new(
+        browser_url => 'http://foo.com',
+        session_id  => 'MY_ID',
+    );
+    $Mock_resp->mock( content => sub { die "Should never be called!" } );
+    $sel->start;
+    is $sel->{session_id}, 'MY_ID';
+    $Mock_resp->mock( content => sub { 'OK' } );
+    $sel->stop;
+    is $sel->{session_id}, undef;
+    req_ok('cmd=testComplete&sessionId=MY_ID');
+    $sel->stop;
+    is_deeply $Mock_req->new_args, undef;
+}
+
+exit;
+
+
+sub req_ok {
+    my $content = shift;
+    my $args = $Mock_req->new_args;
+    is $args->[0], 'HTTP::Request';
+    is $args->[1], 'POST';
+    is $args->[2], 'http://localhost:4444/selenium-server/driver/';
+    is $args->[4], $content;
+}
+
