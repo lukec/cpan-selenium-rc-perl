@@ -1,6 +1,6 @@
 Revision history for Perl extension Test::WWW::Selenium.
 
-1.18 -
+1.18 - Mon Aug 31 23:20:21 PDT 2009
   - Update list of commands that do not require a locator (barbie++)
   - Update Module::Install
   - Ensure that do_command reuses LWP objects and caches 
