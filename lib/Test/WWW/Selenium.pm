@@ -87,8 +87,11 @@ my %comparator = (
 # These commands don't require a locator
 # grep item lib/WWW/Selenium.pm | grep sel | grep \(\) | grep get
 my %no_locator = map { $_ => 1 }
-                qw(alert confirmation prompt absolute_location location
-                   title body_text all_buttons all_links all_fields);
+                qw( speed alert confirmation prompt location title
+                    body_text all_buttons all_links all_fields
+                    mouse_speed all_window_ids all_window_names
+                    all_window_titles html_source cookie absolute_location );
+
 sub no_locator {
     my $self   = shift;
     my $method = shift;
