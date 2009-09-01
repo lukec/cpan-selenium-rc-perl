@@ -55,6 +55,8 @@ Copyright (c) 2006 Luke Closs <lukec@cpan.org>.
 Copyright (c) 2006 Dan Fabulitch <dfabulich@warpmail.net>.
 Copyright (c) 2005, 2006 Mattia Barbon <mbarbon@cpan.org>.
 
+Other contributors: Dan Dascalescu, Scott McWhirter.
+
 lib/WWW/Selenium.pm comes from the Selenium-RC project, which releases
 it under the Apache License, Version 2.0.
 
