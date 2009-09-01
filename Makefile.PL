@@ -8,6 +8,7 @@ use inc::Module::Install;
 use LWP::UserAgent;
 
 name            'Test-WWW-Selenium';
+all_from        'lib/Test/WWW/Selenium.pm';
 author          'Luke Closs <test-www-selenium@awesnob.com>';
 requires       'LWP::UserAgent'  => 0;
 requires       'URI::Escape'     => '1.31';
