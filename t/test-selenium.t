@@ -126,7 +126,7 @@ Commands: {
 
 no_locatior: { 
     $Mock_resp->mock('content' => sub { 'OK,SESSION_ID' });
-    for my $getter (qw(alert prompt absolute_location title)) {
+    for my $getter (qw(alert prompt location title)) {
         $Mock_resp->mock('content' => sub { 'OK,SESSION_ID' });
         my $sel = Test::WWW::Selenium->new(browser_url => 'http://foo.com');
         $sel->open;
