@@ -29,7 +29,6 @@ t/selenium-core.t
 t/selenium-dwim.t
 t/selenium-rc.t
 t/test-selenium.t
-t/test_ajax_jsf.t
 t/test_default_server.t
 t/test_google.t
 t/test_i18n.t
