@@ -25,6 +25,27 @@ my $function_extras = {
     open => { extra_code => <<'EOT' },
     $_[0] ||= '/'; # default to opening site root
 EOT
+    set_timeout => { extra_code => <<'EOT' },
+    $self->{_timeout} = $_[0];
+EOT
+    wait_for_pop_up => { extra_code => <<'EOT' },
+    local $self->{_timeout} = $_[1];
+EOT
+    wait_for_condition => { extra_code => <<'EOT' },
+    local $self->{_timeout} = $_[1];
+EOT
+    wait_for_page_to_load => { extra_code => <<'EOT' },
+    local $self->{_timeout} = $_[1];
+EOT
+    wait_for_frame_to_load => { extra_code => <<'EOT' },
+    local $self->{_timeout} = $_[1];
+EOT
+    wait_for_text_present => { extra_code => <<'EOT' },
+    local $self->{_timeout} = $_[1];
+EOT
+    wait_for_element_present => { extra_code => <<'EOT' },
+    local $self->{_timeout} = $_[1];
+EOT
 };
 my @functions = extract_functions($iedoc, $function_extras);
 
@@ -301,11 +322,7 @@ sub do_command {
     # We use the full version of LWP to make sure we issue an 
     # HTTP 1.1 request (SRC-25)
     
-    if(!$self->{_ua}){
-        $self->{_ua} = LWP::UserAgent->new(keep_alive => $self->{keep_alive});
-    }
-
-    my $ua = $self->{_ua};
+    my $ua = $self->ua;
     my $response = $ua->request( HTTP::Request->new(GET => $fullurl) );
     my $result;
     if ($response->is_success) {
@@ -318,6 +335,19 @@ sub do_command {
     $result = decode_utf8($result) if $encode_present;
     die "Error requesting $fullurl:\n$result\n" unless $result =~ /^OK/;
     return $result;
+}
+
+sub ua {
+    my $self = shift;
+
+    $self->{_ua} ||= LWP::UserAgent->new(keep_alive => $self->{keep_alive});
+
+    if (my $msec = $self->{_timeout}) {
+        # Keep the 3 minute timeout (LWP::UserAgent default) on top of the
+        # selenium timeout
+        $ua->timeout( int($msec/1000 + 180) );
+    }
+    return $self->{_ua};
 }
 
 sub get_string {
