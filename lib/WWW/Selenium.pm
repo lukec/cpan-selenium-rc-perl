@@ -494,7 +494,7 @@ sub ua {
     if (my $msec = $self->{_timeout}) {
         # Keep the 3 minute timeout (LWP::UserAgent default) on top of the
         # selenium timeout
-        $ua->timeout( int($msec/1000 + 180) );
+        $self->{_ua}->timeout( int($msec/1000 + 180) );
     }
     return $self->{_ua};
 }
@@ -3198,15 +3198,18 @@ $library_name is name of the desired library Only the following three can be cho
 
 =over
 
-   =item *
+   
+=item *
 
 "ajaxslt" - Google's library
 
-   =item *
+   
+=item *
 
 "javascript-xpath" - Cybozu Labs' faster library
 
-   =item *
+   
+=item *
 
 "default" - The default library.  Currently the default library is "ajaxslt" .
 
