@@ -345,7 +345,7 @@ sub ua {
     if (my $msec = $self->{_timeout}) {
         # Keep the 3 minute timeout (LWP::UserAgent default) on top of the
         # selenium timeout
-        $ua->timeout( int($msec/1000 + 180) );
+        $self->{_ua}->timeout( int($msec/1000 + 180) );
     }
     return $self->{_ua};
 }

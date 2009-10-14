@@ -6,6 +6,8 @@ use Test::Exception;
 use Test::Mock::LWP;
 use base 'WWW::Selenium';
 
+my $ua_timeout = 180;
+
 sub new {
     my $class = shift;
     my %opts = (
@@ -22,13 +24,17 @@ sub new {
     $self->_set_mock_response_content('FAKE_SESSION_ID');
     $self->start;
 
+    $self->ua->mock( timeout => sub {
+            $ua_timeout = $_[1] if $_[1];
+            return $ua_timeout;
+        }
+    );
+
     # Test that the session was started as we expect
     my $req_args = $Mock_req->new_args;
-    my $content = pop @$req_args;
-    is $content, 'cmd=getNewBrowserSession&1=*firefox&2=http%3A%2F%2Fexample.com&3=';
-    my $headers = pop @$req_args;
-    my $url = "http://$opts{host}:$opts{port}/selenium-server/driver/";
-    is_deeply $req_args, [ 'HTTP::Request', 'POST', $url ];
+    my $url = "http://$opts{host}:$opts{port}/selenium-server/driver/?" .
+        'cmd=getNewBrowserSession&1=*firefox&2=http%3A%2F%2Fexample.com';
+    is_deeply $req_args, [ 'HTTP::Request', 'GET', $url ];
 
     return $self;
 }
@@ -47,6 +53,6 @@ sub _method_exists {
     my $response = 'Something';
     $response = 'true' if $method =~ m/^(?:is_|get_whether)/i;
     $self->_set_mock_response_content($response);
-    lives_ok { $self->$method('one', 'two') } "$method lives";
+    lives_ok { $self->$method(1, 2) } "$method lives";
 }
 1;

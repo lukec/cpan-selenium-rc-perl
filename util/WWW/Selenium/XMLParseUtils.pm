@@ -37,6 +37,7 @@ sub strip_blockquotes {
 
 sub html2pod {
     my $text = shift;
+    my $orig_text = $text;
     $text =~ s#<p>(.+?)</p>#\n$1\n#smg;             # p's should be spaced out a bit
     $text =~ s#^</?(?:p|dl)>##smg;                      # <p>s and <dl>s on their own line
     $text =~ s#</?(?:p|dl)>##g;                         # <p>s and <dl>s 
@@ -47,7 +48,7 @@ sub html2pod {
     $text =~ s#</?dd>#\n#gs;                            # item text
     $text =~ s#<dt>(.+?)</dt>#=item $1\n#g;             # list items
     for (my $i = 0; $i < 5; $i++) {
-        $text =~ s#<li>(.+?)</li>#=item *\n\n$1\n\n#gs;           # ul item
+        $text =~ s#<li>(.+?)</li>#\n=item *\n\n$1\n\n#gs;           # ul item
         $text =~ s#<ul[^>]*>#\n\n=over\n\n#g;                 # ul start
         $text =~ s#</ul>#=back\n\n#g;                       # ul end
     }
