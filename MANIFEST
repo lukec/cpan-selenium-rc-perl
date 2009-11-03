@@ -33,7 +33,6 @@ t/test_default_server.t
 t/test_google.t
 t/test_i18n.t
 t/WWW/Selenium.pm
-t/z0_pod.t
 todo.txt
 util/create_www_selenium.pl
 util/fetch_iedoc_xml.pl
