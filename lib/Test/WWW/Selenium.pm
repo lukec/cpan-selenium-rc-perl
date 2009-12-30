@@ -4,7 +4,7 @@ use strict;
 use base qw(WWW::Selenium);
 use Carp qw(croak);
 
-our $VERSION = '1.20';
+our $VERSION = '1.21';
 
 =head1 NAME
 
@@ -24,6 +24,7 @@ convenient testing functions.
                                         browser => "*firefox",
                                         browser_url => "http://www.google.com",
                                         default_names => 1,
+                                        error_callback => sub { ... },
                                       );
 
     # use special test wrappers around WWW::Selenium commands:
@@ -32,6 +33,7 @@ convenient testing functions.
     $sel->click_ok("btnG");
     $sel->wait_for_page_to_load_ok(5000);
     $sel->title_like(qr/Google Search/);
+    $sel->error_callback(sub {...});
 
 =head1 REQUIREMENTS
 
@@ -64,6 +66,14 @@ that wrap L<WWW::Selenium> commands:
 
 Returns the relative location of the current page.  Works with
 _is, _like, ... methods.
+
+=item error_callback
+
+Sets the method to use when a corresponding selenium test is called and fails.
+For example if you call text_like(...) and it fails the sub defined in the 
+error_callback will be called. This allows you to perform various tasks to
+obtain additional details that occured when obtianing the error. If this is 
+set to undef then the callback will not be issued.
 
 =back
 
@@ -119,7 +129,11 @@ sub AUTOLOAD {
                 $name = "$getter, '$str'" 
                     if $self->{default_names} and !defined $name;
                 no strict 'refs';
-                return $Test->$comparator( $self->$getter, $str, $name );
+                my $rc = $Test->$comparator( $self->$getter, $str, $name );
+                if (!$rc && $self->error_callback) {
+                    &{$self->error_callback}($name);
+                }
+                return $rc;
             };
         }
         else {
@@ -130,7 +144,11 @@ sub AUTOLOAD {
                 $name = "$getter, $locator, '$str'" 
                     if $self->{default_names} and !defined $name;
                 no strict 'refs';
-                return $Test->$comparator( $self->$getter($locator), $str, $name );
+                my $rc = $Test->$comparator( $self->$getter($locator), $str, $name );
+                if (!$rc && $self->error_callback) {
+                    &{$self->error_callback}($name);
+                }
+		return $rc;
             };
         }
     }
@@ -153,7 +171,11 @@ sub AUTOLOAD {
             eval { $rc = $self->$cmd( $arg1, $arg2 ) };
             die $@ if $@ and $@ =~ /Can't locate object method/;
             diag($@) if $@;
-            return ok( $rc, $name );
+            $rc = ok( $rc, $name );
+            if (!$rc && $self->error_callback) {
+                &{$self->error_callback}($name);
+            }
+            return $rc;
         };
     }
 
@@ -179,10 +201,21 @@ sub new {
     my ($class, %opts) = @_;
     my $default_names = defined $opts{default_names} ? 
                             delete $opts{default_names} : 1;
+    my $error_callback = defined $opts{error_callback} ?
+	                    delete $opts{error_callback} : undef;
     my $self = $class->SUPER::new(%opts);
     $self->{default_names} = $default_names;
+    $self->{error_callback} = $error_callback;
     $self->start;
     return $self;
+}
+
+sub error_callback {
+    my ($self, $cb) = @_;
+    if (defined($cb)) {
+        $self->{error_callback} = $cb;
+    }
+    return $self->{error_callback};
 }
 
 1;

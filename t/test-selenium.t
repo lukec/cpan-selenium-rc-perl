@@ -4,7 +4,7 @@ use warnings;
 use Test::More;
 use Test::Exception;
 use Test::Mock::LWP;
-use Test::Builder::Tester tests => 46;
+use Test::Builder::Tester tests => 62;
 Test::Builder::Tester::color(1);
 
 BEGIN {
@@ -221,6 +221,78 @@ Default_test_names: {
         $sel->click_ok('id', 'bar');
         test_test('default names on with test name');
     }
+}
+
+Error_callback: {
+    my $foo = 0;
+    $Mock_resp->mock('content' => sub { 'OK,SESSION_ID' });
+    my $sel = Test::WWW::Selenium->new(
+        browser_url => 'http://foo.com',
+        error_callback => sub { $foo++ },
+    );
+    $sel->open;
+    is_pass: {
+        $Mock_resp->mock('content' => sub { 'OK,foo' });
+        test_out('ok 1 - bar');
+        $sel->text_is('id', 'foo', 'bar');
+        test_test('is pass');
+        is $foo, 0, 'callback not called';
+    }
+    is_fail: {
+        $Mock_resp->mock('content' => sub { 'OK,baz' });
+        test_out('not ok 1 - bar');
+        test_fail(+1);
+        $sel->text_is('id', 'foo', 'bar');
+        test_test(skip_err => 1, title => 'is fail');
+        is $foo, 1, 'callback called';
+    }
+    isnt_pass: {
+        $Mock_resp->mock('content' => sub { 'OK,baz' });
+        test_out('ok 1 - bar');
+        $sel->text_isnt('id', 'foo', 'bar');
+        test_test('isnt pass');
+        is $foo, 1, 'callback not called';
+    }
+    isnt_fail: {
+        $Mock_resp->mock('content' => sub { 'OK,foo' });
+        test_out('not ok 1 - bar');
+        test_fail(+1);
+        $sel->text_isnt('id', 'foo', 'bar');
+        test_test(skip_err => 1, title => 'isnt fail');
+        is $foo, 2, 'callback called';
+    }
+    like_pass: {
+        $Mock_resp->mock('content' => sub { 'OK,foo' });
+        test_out('ok 1 - bar');
+        $sel->text_like('id', qr/foo/, 'bar');
+        test_test('like pass');
+        is $foo, 2, 'callback not called';
+    }
+    like_fail: {
+        $Mock_resp->mock('content' => sub { 'OK,baz' });
+        test_out('not ok 1 - bar');
+        test_fail(+1);
+        $sel->text_like('id', qr/foo/, 'bar');
+        test_test(skip_err => 1, title => 'like fail');
+        is $foo, 3, 'callback called';
+    }
+    unlike_pass: {
+        $Mock_resp->mock('content' => sub { 'OK,baz' });
+        test_out('ok 1 - bar');
+        $sel->text_unlike('id', qr/foo/, 'bar');
+        test_test('unlike pass');
+        is $foo, 3, 'callback not called';
+    }
+    unlike_fail: {
+        $Mock_resp->mock('content' => sub { 'OK,foo' });
+        test_out('not ok 1 - bar');
+        test_fail(+1);
+        $sel->text_unlike('id', qr/foo/, 'bar');
+        test_test(skip_err => 1, title => 'unlike fail');
+        is $foo, 4, 'callback called';
+    }
+    # for $sel DESTROY
+    $Mock_resp->mock('content' => sub { 'OK' });
 }
 
 exit;
