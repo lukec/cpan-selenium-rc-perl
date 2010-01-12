@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use warnings;
 use strict;
-use inc::Module::Install;
+use inc::Module::Install 0.89;
 
 # Need to explicitly pre-load this so it doesn't conflict with a mocked one
 # created by loading Test::Mock::LWP
@@ -22,4 +22,5 @@ license 'perl';
 auto_install;
 
 # Generate the Makefile
+repository 'http://github.com/lukec/cpan-selenium-rc-perl';
 WriteAll;
