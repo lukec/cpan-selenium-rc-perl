@@ -17,9 +17,7 @@ lib/WWW/Selenium.pm
 lib/WWW/Selenium/Util.pm
 Makefile.PL
 MANIFEST			This list of files
-META.yml
 mypod2html.pl
-old-changes
 pom.xml
 README
 t/01_load.t
