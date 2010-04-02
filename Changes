@@ -1,5 +1,10 @@
 Revision history for Perl extension Test::WWW::Selenium.
 
+1.22 - Fri Apr  2 10:51:58 PDT 2010
+  - Update URI::Encode dependency so we can depend on a consistent
+    encoding of *firefox to %2Afirefox.
+  - No code changes, just test fixes.
+
 1.21 - Wed Dec 30 14:58:07 PST 2009
   - Add error_callback() patch from Derek Wueppelmann
 
