@@ -28,7 +28,7 @@ Good_usage: {
         $Mock_resp->mock( content => sub {'OK,SESSION_ID'} );
         $sel->start;
         is $sel->{session_id}, 'SESSION_ID';
-        req_ok('cmd=getNewBrowserSession&1=*firefox&2=http%3A%2F%2Ffoo.com');
+        req_ok('cmd=getNewBrowserSession&1=%2Afirefox&2=http%3A%2F%2Ffoo.com');
         $Mock_resp->mock( content => sub { 'OK' } );
         $sel->open;
     }

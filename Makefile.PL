@@ -5,13 +5,13 @@ use inc::Module::Install 0.89;
 
 # Need to explicitly pre-load this so it doesn't conflict with a mocked one
 # created by loading Test::Mock::LWP
-use LWP::UserAgent;
+eval "require LWP::UserAgent";
 
 name            'Test-WWW-Selenium';
 all_from        'lib/Test/WWW/Selenium.pm';
 author          'Luke Closs <test-www-selenium@awesnob.com>';
 requires       'LWP::UserAgent'  => 0;
-requires       'URI::Escape'     => '1.31';
+requires       'URI::Escape'     => '3.30';
 build_requires 'Test::More'      => '0.42';
 build_requires 'Test::Exception' => 0;
 build_requires 'Test::Mock::LWP' => 0;
