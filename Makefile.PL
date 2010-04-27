@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use warnings;
 use strict;
-use inc::Module::Install 0.89;
+use inc::Module::Install 0.95;
 
 # Need to explicitly pre-load this so it doesn't conflict with a mocked one
 # created by loading Test::Mock::LWP
