@@ -3192,8 +3192,6 @@ sub remove_script {
 
 Allows choice of one of the available libraries.
 
-=over
-
 $library_name is name of the desired library Only the following three can be chosen: 
 
 =over
