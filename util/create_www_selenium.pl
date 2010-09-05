@@ -96,6 +96,7 @@ sub pm_header {
 package WWW::Selenium;
 use LWP::UserAgent;
 use HTTP::Request;
+use HTTP::Headers;
 use URI::Escape;
 use Carp qw(croak);
 use Time::HiRes qw(sleep);
@@ -255,6 +256,11 @@ goes out of scope and stop hasn't been called.
 Number of connections LWP should cache. This is just a minor speed
 improvement. Defaults to 5.
 
+=item * C<http_method>>
+
+Choose which HTTP method should be used for requests to the Selenium server.
+Only GET and POST are supported.
+
 =back
 
 =cut
@@ -268,9 +274,12 @@ sub new {
                  browser_start_command => delete $args{browser} || '*firefox',
                  _ua => undef,
                  keep_alive => 5,
+                 http_method => 'POST',
                  %args,
                };
     croak 'browser_url is mandatory!' unless $self->{browser_url};
+    croak "Unknown http_method: ($self->{http_method})"
+        unless $self->{http_method} =~ m/^GET|POST$/;
     bless $self, $class or die "Can't bless $class: $!";
     return $self;
 }
@@ -292,6 +301,7 @@ sub stop {
 
 sub do_command {
     my ($self, $command, @args) = @_;
+    my $get = $self->{http_method} eq 'GET';
 
     $self->{_page_opened} = 1 if $command eq 'open';
 
@@ -306,24 +316,31 @@ sub do_command {
     }
 
     $command = uri_escape($command);
-    my $fullurl = "http://$self->{host}:$self->{port}/selenium-server/driver/"
-                  . "\?cmd=$command";
+    my ($fullurl, $content) = ("http://$self->{host}:$self->{port}/selenium-server/driver/", '');
+
     my $i = 1;
     @args = grep defined, @args;
+    my $params = $get ? \$fullurl : \$content;
+    $$params .= "?cmd=$command";
     while (@args) {
-        $fullurl .= "&$i=" . URI::Escape::uri_escape_utf8(shift @args);
-        $i++;
+        $$params .= '&' . $i++ . '=' . URI::Escape::uri_escape_utf8(shift @args);
     }
     if (defined $self->{session_id}) {
-        $fullurl .= "&sessionId=$self->{session_id}";
+        $$params .= "&sessionId=$self->{session_id}";
     }
-    print "---> Requesting $fullurl\n" if $self->{verbose};
+    print "---> Requesting $fullurl ($content)\n" if $self->{verbose};
 
     # We use the full version of LWP to make sure we issue an 
     # HTTP 1.1 request (SRC-25)
     
-    my $ua = $self->ua;
-    my $response = $ua->request( HTTP::Request->new(GET => $fullurl) );
+    my $method = $get ? 'GET' : 'POST';
+    my $header = HTTP::Headers->new(
+        $get ? () : (
+            Content_Type => 'application/x-www-form-urlencoded; charset=utf-8'
+        )
+    );
+    my $response = $self->ua->request( 
+        HTTP::Request->new($method => $fullurl, $header, $content) );
     my $result;
     if ($response->is_success) {
         $result = $response->content;

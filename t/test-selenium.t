@@ -4,7 +4,7 @@ use warnings;
 use Test::More;
 use Test::Exception;
 use Test::Mock::LWP;
-use Test::Builder::Tester tests => 62;
+use Test::Builder::Tester tests => 64;
 Test::Builder::Tester::color(1);
 
 BEGIN {
@@ -301,9 +301,10 @@ exit;
 sub req_ok {
     my $content = shift;
     my $args = $Mock_req->new_args;
-    my $uri = "http://localhost:4444/selenium-server/driver/?$content";
+    my $uri = "http://localhost:4444/selenium-server/driver/";
     is $args->[0], 'HTTP::Request';
-    is $args->[1], 'GET';
+    is $args->[1], 'POST';
     is $args->[2], $uri;
+    is $args->[4], "?$content";
 }
 

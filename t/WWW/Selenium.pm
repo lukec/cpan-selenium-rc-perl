@@ -32,9 +32,12 @@ sub new {
 
     # Test that the session was started as we expect
     my $req_args = $Mock_req->new_args;
-    my $url = "http://$opts{host}:$opts{port}/selenium-server/driver/?" .
-        'cmd=getNewBrowserSession&1=%2Afirefox&2=http%3A%2F%2Fexample.com';
-    is_deeply $req_args, [ 'HTTP::Request', 'GET', $url ];
+    my $url = "http://$opts{host}:$opts{port}/selenium-server/driver/";
+    my $content = "?cmd=getNewBrowserSession&1=%2Afirefox"
+                . "&2=http%3A%2F%2Fexample.com";
+    is $req_args->[1], 'POST';
+    is $req_args->[2], $url;
+    is $req_args->[4], $content;
 
     return $self;
 }

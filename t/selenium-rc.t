@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 45;
+use Test::More tests => 50;
 use Test::Exception;
 use Test::Mock::LWP;
 
@@ -146,7 +146,8 @@ sub req_ok {
     my $content = shift;
     my $args = $Mock_req->new_args;
     is $args->[0], 'HTTP::Request';
-    is $args->[1], 'GET';
-    is $args->[2], "http://localhost:4444/selenium-server/driver/?$content";
+    is $args->[1], 'POST';
+    is $args->[2], "http://localhost:4444/selenium-server/driver/";
+    is $args->[4], "?$content";
 }
 
