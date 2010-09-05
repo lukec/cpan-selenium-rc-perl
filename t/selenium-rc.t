@@ -148,6 +148,6 @@ sub req_ok {
     is $args->[0], 'HTTP::Request';
     is $args->[1], 'POST';
     is $args->[2], "http://localhost:4444/selenium-server/driver/";
-    is $args->[4], "?$content";
+    is $args->[4], $content;
 }
 

@@ -464,25 +464,25 @@ sub do_command {
         die "You must open a page before calling $command. eg: \$sel->open('/');\n";
     }
 
-    $command = uri_escape($command);
-    my ($fullurl, $content) = ("http://$self->{host}:$self->{port}/selenium-server/driver/", '');
+    my $fullurl = "http://$self->{host}:$self->{port}/selenium-server/driver/";
+    $fullurl .= '?' if $get;
+    my $content = '';
 
     my $i = 1;
     @args = grep defined, @args;
     my $params = $get ? \$fullurl : \$content;
-    $$params .= "?cmd=$command";
+    $$params .= "cmd=" . uri_escape($command);
     while (@args) {
         $$params .= '&' . $i++ . '=' . URI::Escape::uri_escape_utf8(shift @args);
     }
     if (defined $self->{session_id}) {
         $$params .= "&sessionId=$self->{session_id}";
     }
-    print "---> Requesting $fullurl ($content)\n" if $self->{verbose};
-
     # We use the full version of LWP to make sure we issue an 
     # HTTP 1.1 request (SRC-25)
     
     my $method = $get ? 'GET' : 'POST';
+    print "---> Requesting $method $fullurl ($content)\n" if $self->{verbose};
     my $header = HTTP::Headers->new(
         $get ? () : (
             Content_Type => 'application/x-www-form-urlencoded; charset=utf-8'

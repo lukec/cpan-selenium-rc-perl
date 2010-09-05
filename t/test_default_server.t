@@ -22,28 +22,42 @@ use Test::More;
 
 my ($host, $port) = server_is_running();
 if ($host and $port) {
-    plan tests => 6;
+    plan tests => 7;
 }
 else {
     plan skip_all => "No selenium server found!";
     exit 0;
 }
 
+Regular_test: {
+    my $sel = Test::WWW::Selenium->new(
+        host        => $host,
+        port        => $port,
+        browser     => "*firefox",
+        browser_url => "http://$host:$port",
+        verbose => 1,
+    );
+    $sel->open_ok("/selenium-server/tests/html/test_click_page1.html");
+    $sel->text_like("link", qr/Click here for next page/, "link contains expected text");
+    my @links = $sel->get_all_links();
+    ok(@links > 3);
+    is($links[3], "linkToAnchorOnThisPage");
+    $sel->click("link");
+    $sel->wait_for_page_to_load(5000);
+    $sel->location_like(qr"/selenium-server/tests/html/test_click_page2.html");
+    $sel->click("previousPage");
+    $sel->wait_for_page_to_load(5000);
+    $sel->location_like(qr"/selenium-server/tests/html/test_click_page1.html");
+}
 
-my $sel = Test::WWW::Selenium->new(
-    host        => $host,
-    port        => $port,
-    browser     => "*firefox",
-    browser_url => "http://$host:$port",
-);
-$sel->open_ok("/selenium-server/tests/html/test_click_page1.html");
-$sel->text_like("link", qr/Click here for next page/, "link contains expected text");
-my @links = $sel->get_all_links();
-ok(@links > 3);
-is($links[3], "linkToAnchorOnThisPage");
-$sel->click("link");
-$sel->wait_for_page_to_load(5000);
-$sel->location_like(qr"/selenium-server/tests/html/test_click_page2.html");
-$sel->click("previousPage");
-$sel->wait_for_page_to_load(5000);
-$sel->location_like(qr"/selenium-server/tests/html/test_click_page1.html");
+HTTP_GET: {
+    my $sel = Test::WWW::Selenium->new(
+        host        => $host,
+        port        => $port,
+        browser     => "*firefox",
+        browser_url => "http://$host:$port",
+        http_method => 'GET',
+        verbose => 1,
+    );
+    $sel->open_ok("/selenium-server/tests/html/test_click_page1.html");
+}
