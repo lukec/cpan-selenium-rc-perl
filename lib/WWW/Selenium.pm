@@ -3230,7 +3230,7 @@ $library_name is name of the desired library Only the following three can be cho
 
 "default" - The default library.  Currently the default library is "ajaxslt" .
 
- =back
+=back
 
  If libraryName isn't one of these three, then  no change will be made.
 
@@ -3438,7 +3438,7 @@ sub wait_for_element_present {
 }
 
 
-=item * $sel-E<gt>is_location($expected_location)
+=item $sel-E<gt>is_location($expected_location)
 
 Verify the location of the current page ends with the expected location.
 If an URL querystring is provided, this is checked as well.
@@ -3462,7 +3462,7 @@ sub is_location {
     return $loc =~ /\Q$expected_location\E$/;
 }
 
-=item * $sel-E<gt>get_checked($locator)
+=item $sel-E<gt>get_checked($locator)
 
 Gets whether a toggle-button (checkbox/radio) is checked.  Fails if the specified element doesn't exist or isn't a toggle-button.
 
@@ -3483,7 +3483,7 @@ sub get_checked {
     return $self->get_string("isChecked", @_) ? 'true' : 'false';
 }
 
-=item * $sel-E<gt>is_selected($locator, $option_locator)
+=item $sel-E<gt>is_selected($locator, $option_locator)
 
 Verifies that the selected option of a drop-down satisfies the optionSpecifier.
 
@@ -3513,7 +3513,7 @@ sub is_selected {
     return grep { $pattern eq $_ } @selected;
 }
 
-=item * $sel-E<gt>get_selected_options($locator)
+=item $sel-E<gt>get_selected_options($locator)
 
 Gets all option labels for selected options in the specified select or multi-select element.
 
@@ -3534,7 +3534,7 @@ sub get_selected_options {
     return $self->get_string_array("getSelectedLabels", @_);
 }
 
-=item * $sel-E<gt>get_absolute_location()
+=item $sel-E<gt>get_absolute_location()
 
 Gets the absolute URL of the current page.
 
