@@ -75,13 +75,13 @@ the Selenium Server.  (The Selenium Server is a Java application.)
 
 #Defines an object that runs Selenium commands.
 
-=head3 Element Locators
+=head2 Element Locators
 
 Element Locators tell Selenium which HTML element a command refers to.The format of a locator is:
 
 =over
 
-I<locatorType>B<=>I<argument>
+=item I<locatorType>B<=>I<argument>
 
 =back
 
@@ -249,7 +249,7 @@ B<identifier>, otherwise
 
 =back
 
-=head3 Element Filters
+=head2 Element Filters
 
 Element filters can be used with a locator to refine a list of candidate elements.  They are currently used only in the 'name' element-locator.
 
@@ -257,29 +257,25 @@ Filters look much like locators, ie.
 
 =over
 
-I<filterType>B<=>I<argument>
+=item I<filterType>B<=>I<argument>
 
 =back
 
 Supported element-filters are:
 
-B<value=>I<valuePattern>
-
 =over
+
+=item B<value=>I<valuePattern>
 
 Matches elements based on their values.  This is particularly useful for refining a list of similarly-named toggle-buttons.
 
-=back
-
-B<index=>I<index>
-
-=over
+=item B<index=>I<index>
 
 Selects a single element based on its position in the list (offset from zero).
 
 =back
 
-=head3 String-match Patterns
+=head2 String-match Patterns
 
 Various Pattern syntaxes are available for matching string values:
 
@@ -610,7 +606,7 @@ Clicks on a link, button, checkbox or radio button. If the click actioncauses a 
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -627,7 +623,7 @@ Double clicks on a link, button, checkbox or radio button. If the double click a
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -644,7 +640,7 @@ Simulates opening the context menu for the specified element (as might happen if
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -661,9 +657,9 @@ Clicks on a link, button, checkbox or radio button. If the click actioncauses a 
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
+=item $coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
 
 =back
 
@@ -680,9 +676,9 @@ Doubleclicks on a link, button, checkbox or radio button. If the actioncauses a 
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
+=item $coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
 
 =back
 
@@ -699,9 +695,9 @@ Simulates opening the context menu for the specified element (as might happen if
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
+=item $coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
 
 =back
 
@@ -718,9 +714,9 @@ Explicitly simulate an event, to trigger the corresponding "onI<event>"handler.
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$event_name is the event name, e.g. "focus" or "blur"
+=item $event_name is the event name, e.g. "focus" or "blur"
 
 =back
 
@@ -737,7 +733,7 @@ Move the focus to the specified element; for example, if the element is an input
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -754,9 +750,9 @@ Simulates a user pressing and releasing a key.
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$key_sequence is Either be a string("\" followed by the numeric keycode  of the key to be pressed, normally the ASCII value of that key), or a single  character. For example: "w", "\119".
+=item $key_sequence is Either be a string("\" followed by the numeric keycode  of the key to be pressed, normally the ASCII value of that key), or a single  character. For example: "w", "\119".
 
 =back
 
@@ -861,9 +857,9 @@ Simulates a user pressing a key (without releasing it yet).
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$key_sequence is Either be a string("\" followed by the numeric keycode  of the key to be pressed, normally the ASCII value of that key), or a single  character. For example: "w", "\119".
+=item $key_sequence is Either be a string("\" followed by the numeric keycode  of the key to be pressed, normally the ASCII value of that key), or a single  character. For example: "w", "\119".
 
 =back
 
@@ -880,9 +876,9 @@ Simulates a user releasing a key.
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$key_sequence is Either be a string("\" followed by the numeric keycode  of the key to be pressed, normally the ASCII value of that key), or a single  character. For example: "w", "\119".
+=item $key_sequence is Either be a string("\" followed by the numeric keycode  of the key to be pressed, normally the ASCII value of that key), or a single  character. For example: "w", "\119".
 
 =back
 
@@ -899,7 +895,7 @@ Simulates a user hovering a mouse over the specified element.
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -916,7 +912,7 @@ Simulates a user moving the mouse pointer away from the specified element.
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -933,7 +929,7 @@ Simulates a user pressing the left mouse button (without releasing it yet) onthe
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -950,7 +946,7 @@ Simulates a user pressing the right mouse button (without releasing it yet) onth
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -967,9 +963,9 @@ Simulates a user pressing the left mouse button (without releasing it yet) atthe
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
+=item $coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
 
 =back
 
@@ -986,9 +982,9 @@ Simulates a user pressing the right mouse button (without releasing it yet) atth
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
+=item $coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
 
 =back
 
@@ -1005,7 +1001,7 @@ Simulates the event that occurs when the user releases the mouse button (i.e., s
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -1022,7 +1018,7 @@ Simulates the event that occurs when the user releases the right mouse button (i
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -1039,9 +1035,9 @@ Simulates the event that occurs when the user releases the mouse button (i.e., s
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
+=item $coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
 
 =back
 
@@ -1058,9 +1054,9 @@ Simulates the event that occurs when the user releases the right mouse button (i
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
+=item $coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
 
 =back
 
@@ -1077,7 +1073,7 @@ Simulates a user pressing the mouse button (without releasing it yet) onthe spec
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -1094,9 +1090,9 @@ Simulates a user pressing the mouse button (without releasing it yet) onthe spec
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
+=item $coord_string is specifies the x,y position (i.e. - 10,20) of the mouse      event relative to the element returned by the locator.
 
 =back
 
@@ -1114,9 +1110,9 @@ Can also be used to set the value of combo boxes, check boxes, etc. In these cas
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$value is the value to type
+=item $value is the value to type
 
 =back
 
@@ -1138,9 +1134,9 @@ In some cases, you may need to use the simple "type" command to set the value of
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$value is the value to type
+=item $value is the value to type
 
 =back
 
@@ -1157,7 +1153,7 @@ Set execution speed (i.e., set the millisecond length of a delay which will foll
 
 =over
 
-$value is the number of milliseconds to pause after operation
+=item $value is the number of milliseconds to pause after operation
 
 =back
 
@@ -1174,7 +1170,7 @@ Get execution speed (i.e., get the millisecond length of the delay following eac
 
 =over
 
-Returns the execution speed in milliseconds.
+=item Returns the execution speed in milliseconds.
 
 =back
 
@@ -1191,7 +1187,7 @@ Check a toggle-button (checkbox/radio)
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -1208,7 +1204,7 @@ Uncheck a toggle-button (checkbox/radio)
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -1280,9 +1276,9 @@ If no option locator prefix is provided, the default behaviour is to match on B<
 
 =over
 
-$select_locator is an element locator identifying a drop-down menu
+=item $select_locator is an element locator identifying a drop-down menu
 
-$option_locator is an option locator (a label by default)
+=item $option_locator is an option locator (a label by default)
 
 =back
 
@@ -1299,9 +1295,9 @@ Add a selection to the set of selected options in a multi-select element using a
 
 =over
 
-$locator is an element locator identifying a multi-select box
+=item $locator is an element locator identifying a multi-select box
 
-$option_locator is an option locator (a label by default)
+=item $option_locator is an option locator (a label by default)
 
 =back
 
@@ -1318,9 +1314,9 @@ Remove a selection from the set of selected options in a multi-select element us
 
 =over
 
-$locator is an element locator identifying a multi-select box
+=item $locator is an element locator identifying a multi-select box
 
-$option_locator is an option locator (a label by default)
+=item $option_locator is an option locator (a label by default)
 
 =back
 
@@ -1337,7 +1333,7 @@ Unselects all of the selected options in a multi-select element.
 
 =over
 
-$locator is an element locator identifying a multi-select box
+=item $locator is an element locator identifying a multi-select box
 
 =back
 
@@ -1354,7 +1350,7 @@ Submit the specified form. This is particularly useful for forms withoutsubmit b
 
 =over
 
-$form_locator is an element locator for the form you want to submit
+=item $form_locator is an element locator for the form you want to submit
 
 =back
 
@@ -1371,7 +1367,7 @@ Opens an URL in the test frame. This accepts both relative and absoluteURLs.The 
 
 =over
 
-$url is the URL to open; may be relative or absolute
+=item $url is the URL to open; may be relative or absolute
 
 =back
 
@@ -1391,9 +1387,9 @@ This command can also be a useful workaround for bug SEL-339.  In some cases, Se
 
 =over
 
-$url is the URL to open, which can be blank
+=item $url is the URL to open, which can be blank
 
-$window_id is the JavaScript window ID of the window to select
+=item $window_id is the JavaScript window ID of the window to select
 
 =back
 
@@ -1443,7 +1439,7 @@ In some cases, Selenium will be unable to intercept a call to window.open (if th
 
 =over
 
-$window_id is the JavaScript window ID of the window to select
+=item $window_id is the JavaScript window ID of the window to select
 
 =back
 
@@ -1472,7 +1468,7 @@ Otherwise, the window will be looked up consideringC<windowID> as the following 
 
 =over
 
-$window_id is an identifier for the popup window, which can take on a                  number of different meanings
+=item $window_id is an identifier for the popup window, which can take on a                  number of different meanings
 
 =back
 
@@ -1501,7 +1497,7 @@ You may also use a DOM expression to identify the frame you want directly,like t
 
 =over
 
-$locator is an element locator identifying a frame or iframe
+=item $locator is an element locator identifying a frame or iframe
 
 =back
 
@@ -1519,15 +1515,15 @@ This is useful in proxy injection mode, where this code runs in everybrowser fra
 
 =over
 
-$current_frame_string is starting frame
+=item $current_frame_string is starting frame
 
-$target is new frame (which might be relative to the current one)
+=item $target is new frame (which might be relative to the current one)
 
 =back
 
 =over
 
-Returns true if the new frame is this code's window
+=item Returns true if the new frame is this code's window
 
 =back
 
@@ -1545,15 +1541,15 @@ This is useful in proxy injection mode, where this code runs in everybrowser fra
 
 =over
 
-$current_window_string is starting window
+=item $current_window_string is starting window
 
-$target is new window (which might be relative to the current one, e.g., "_parent")
+=item $target is new window (which might be relative to the current one, e.g., "_parent")
 
 =back
 
 =over
 
-Returns true if the new window is this code's window
+=item Returns true if the new window is this code's window
 
 =back
 
@@ -1570,9 +1566,9 @@ Waits for a popup window to appear and load up.
 
 =over
 
-$window_id is the JavaScript window "name" of the window that will appear (not the text of the title bar)                 If unspecified, or specified as "null", this command will                 wait for the first non-top window to appear (don't rely                 on this if you are working with multiple popups                 simultaneously).
+=item $window_id is the JavaScript window "name" of the window that will appear (not the text of the title bar)                 If unspecified, or specified as "null", this command will                 wait for the first non-top window to appear (don't rely                 on this if you are working with multiple popups                 simultaneously).
 
-$timeout is a timeout in milliseconds, after which the action will return with an error.                If this value is not specified, the default Selenium                timeout will be used. See the setTimeout() command.
+=item $timeout is a timeout in milliseconds, after which the action will return with an error.                If this value is not specified, the default Selenium                timeout will be used. See the setTimeout() command.
 
 =back
 
@@ -1617,7 +1613,7 @@ Instructs Selenium to return the specified answer string in response tothe next 
 
 =over
 
-$answer is the answer to give in response to the prompt pop-up
+=item $answer is the answer to give in response to the prompt pop-up
 
 =back
 
@@ -1668,7 +1664,7 @@ This function never throws an exception
 
 =over
 
-Returns true if there is an alert
+=item Returns true if there is an alert
 
 =back
 
@@ -1686,7 +1682,7 @@ This function never throws an exception
 
 =over
 
-Returns true if there is a pending prompt
+=item Returns true if there is a pending prompt
 
 =back
 
@@ -1704,7 +1700,7 @@ This function never throws an exception
 
 =over
 
-Returns true if there is a pending confirmation
+=item Returns true if there is a pending confirmation
 
 =back
 
@@ -1726,7 +1722,7 @@ Selenium does NOT support JavaScript alerts that are generated in apage's onload
 
 =over
 
-Returns The message of the most recent JavaScript alert
+=item Returns The message of the most recent JavaScript alert
 
 =back
 
@@ -1750,7 +1746,7 @@ NOTE: Selenium does NOT support JavaScript confirmations that aregenerated in a 
 
 =over
 
-Returns the message of the most recent JavaScript confirmation dialog
+=item Returns the message of the most recent JavaScript confirmation dialog
 
 =back
 
@@ -1772,7 +1768,7 @@ NOTE: Selenium does NOT support JavaScript prompts that are generated in apage's
 
 =over
 
-Returns the message of the most recent JavaScript question prompt
+=item Returns the message of the most recent JavaScript question prompt
 
 =back
 
@@ -1789,7 +1785,7 @@ Gets the absolute URL of the current page.
 
 =over
 
-Returns the absolute URL of the current page
+=item Returns the absolute URL of the current page
 
 =back
 
@@ -1806,7 +1802,7 @@ Gets the title of the current page.
 
 =over
 
-Returns the title of the current page
+=item Returns the title of the current page
 
 =back
 
@@ -1823,7 +1819,7 @@ Gets the entire text of the page.
 
 =over
 
-Returns the entire text of the page
+=item Returns the entire text of the page
 
 =back
 
@@ -1840,13 +1836,13 @@ Gets the (whitespace-trimmed) value of an input field (or anything else with a v
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
 =over
 
-Returns the element value, or "on/off" for checkbox/radio elements
+=item Returns the element value, or "on/off" for checkbox/radio elements
 
 =back
 
@@ -1863,13 +1859,13 @@ Gets the text of an element. This works for any element that containstext. This 
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
 =over
 
-Returns the text of the element
+=item Returns the text of the element
 
 =back
 
@@ -1886,7 +1882,7 @@ Briefly changes the backgroundColor of the specified element yellow.  Useful for
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
@@ -1906,13 +1902,13 @@ If you need to usea locator to refer to a single element in your application pag
 
 =over
 
-$script is the JavaScript snippet to run
+=item $script is the JavaScript snippet to run
 
 =back
 
 =over
 
-Returns the results of evaluating the snippet
+=item Returns the results of evaluating the snippet
 
 =back
 
@@ -1929,13 +1925,13 @@ Gets whether a toggle-button (checkbox/radio) is checked.  Fails if the specifie
 
 =over
 
-$locator is an element locator pointing to a checkbox or radio button
+=item $locator is an element locator pointing to a checkbox or radio button
 
 =back
 
 =over
 
-Returns true if the checkbox is checked, false otherwise
+=item Returns true if the checkbox is checked, false otherwise
 
 =back
 
@@ -1952,13 +1948,13 @@ Gets the text from a cell of a table. The cellAddress syntaxtableLocator.row.col
 
 =over
 
-$table_cell_address is a cell address, e.g. "foo.1.4"
+=item $table_cell_address is a cell address, e.g. "foo.1.4"
 
 =back
 
 =over
 
-Returns the text from the specified cell
+=item Returns the text from the specified cell
 
 =back
 
@@ -1975,13 +1971,13 @@ Gets all option labels (visible text) for selected options in the specified sele
 
 =over
 
-$select_locator is an element locator identifying a drop-down menu
+=item $select_locator is an element locator identifying a drop-down menu
 
 =back
 
 =over
 
-Returns an array of all selected option labels in the specified select drop-down
+=item Returns an array of all selected option labels in the specified select drop-down
 
 =back
 
@@ -1998,13 +1994,13 @@ Gets option label (visible text) for selected option in the specified select ele
 
 =over
 
-$select_locator is an element locator identifying a drop-down menu
+=item $select_locator is an element locator identifying a drop-down menu
 
 =back
 
 =over
 
-Returns the selected option label in the specified select drop-down
+=item Returns the selected option label in the specified select drop-down
 
 =back
 
@@ -2021,13 +2017,13 @@ Gets all option values (value attributes) for selected options in the specified 
 
 =over
 
-$select_locator is an element locator identifying a drop-down menu
+=item $select_locator is an element locator identifying a drop-down menu
 
 =back
 
 =over
 
-Returns an array of all selected option values in the specified select drop-down
+=item Returns an array of all selected option values in the specified select drop-down
 
 =back
 
@@ -2044,13 +2040,13 @@ Gets option value (value attribute) for selected option in the specified select 
 
 =over
 
-$select_locator is an element locator identifying a drop-down menu
+=item $select_locator is an element locator identifying a drop-down menu
 
 =back
 
 =over
 
-Returns the selected option value in the specified select drop-down
+=item Returns the selected option value in the specified select drop-down
 
 =back
 
@@ -2067,13 +2063,13 @@ Gets all option indexes (option number, starting at 0) for selected options in t
 
 =over
 
-$select_locator is an element locator identifying a drop-down menu
+=item $select_locator is an element locator identifying a drop-down menu
 
 =back
 
 =over
 
-Returns an array of all selected option indexes in the specified select drop-down
+=item Returns an array of all selected option indexes in the specified select drop-down
 
 =back
 
@@ -2090,13 +2086,13 @@ Gets option index (option number, starting at 0) for selected option in the spec
 
 =over
 
-$select_locator is an element locator identifying a drop-down menu
+=item $select_locator is an element locator identifying a drop-down menu
 
 =back
 
 =over
 
-Returns the selected option index in the specified select drop-down
+=item Returns the selected option index in the specified select drop-down
 
 =back
 
@@ -2113,13 +2109,13 @@ Gets all option element IDs for selected options in the specified select or mult
 
 =over
 
-$select_locator is an element locator identifying a drop-down menu
+=item $select_locator is an element locator identifying a drop-down menu
 
 =back
 
 =over
 
-Returns an array of all selected option IDs in the specified select drop-down
+=item Returns an array of all selected option IDs in the specified select drop-down
 
 =back
 
@@ -2136,13 +2132,13 @@ Gets option element ID for selected option in the specified select element.
 
 =over
 
-$select_locator is an element locator identifying a drop-down menu
+=item $select_locator is an element locator identifying a drop-down menu
 
 =back
 
 =over
 
-Returns the selected option ID in the specified select drop-down
+=item Returns the selected option ID in the specified select drop-down
 
 =back
 
@@ -2159,13 +2155,13 @@ Determines whether some option in a drop-down menu is selected.
 
 =over
 
-$select_locator is an element locator identifying a drop-down menu
+=item $select_locator is an element locator identifying a drop-down menu
 
 =back
 
 =over
 
-Returns true if some option has been selected, false otherwise
+=item Returns true if some option has been selected, false otherwise
 
 =back
 
@@ -2182,13 +2178,13 @@ Gets all option labels in the specified select drop-down.
 
 =over
 
-$select_locator is an element locator identifying a drop-down menu
+=item $select_locator is an element locator identifying a drop-down menu
 
 =back
 
 =over
 
-Returns an array of all option labels in the specified select drop-down
+=item Returns an array of all option labels in the specified select drop-down
 
 =back
 
@@ -2205,13 +2201,13 @@ Gets the value of an element attribute. The value of the attribute maydiffer acr
 
 =over
 
-$attribute_locator is an element locator followed by an @ sign and then the name of the attribute, e.g. "foo@bar"
+=item $attribute_locator is an element locator followed by an @ sign and then the name of the attribute, e.g. "foo@bar"
 
 =back
 
 =over
 
-Returns the value of the specified attribute
+=item Returns the value of the specified attribute
 
 =back
 
@@ -2228,13 +2224,13 @@ Verifies that the specified text pattern appears somewhere on the rendered page 
 
 =over
 
-$pattern is a pattern to match with the text of the page
+=item $pattern is a pattern to match with the text of the page
 
 =back
 
 =over
 
-Returns true if the pattern matches the text, false otherwise
+=item Returns true if the pattern matches the text, false otherwise
 
 =back
 
@@ -2251,13 +2247,13 @@ Verifies that the specified element is somewhere on the page.
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
 =over
 
-Returns true if the element is present, false otherwise
+=item Returns true if the element is present, false otherwise
 
 =back
 
@@ -2274,13 +2270,13 @@ Determines if the specified element is visible. Anelement can be rendered invisi
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
 =over
 
-Returns true if the specified element is visible, false otherwise
+=item Returns true if the specified element is visible, false otherwise
 
 =back
 
@@ -2297,13 +2293,13 @@ Determines whether the specified input element is editable, ie hasn't been disab
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
 =back
 
 =over
 
-Returns true if the input element is editable, false otherwise
+=item Returns true if the input element is editable, false otherwise
 
 =back
 
@@ -2321,7 +2317,7 @@ If a given button has no ID, it will appear as "" in this array.
 
 =over
 
-Returns the IDs of all buttons on the page
+=item Returns the IDs of all buttons on the page
 
 =back
 
@@ -2339,7 +2335,7 @@ If a given link has no ID, it will appear as "" in this array.
 
 =over
 
-Returns the IDs of all links on the page
+=item Returns the IDs of all links on the page
 
 =back
 
@@ -2357,7 +2353,7 @@ If a given field has no ID, it will appear as "" in this array.
 
 =over
 
-Returns the IDs of all field on the page
+=item Returns the IDs of all field on the page
 
 =back
 
@@ -2374,13 +2370,13 @@ Returns an array of JavaScript property values from all known windows having one
 
 =over
 
-$attribute_name is name of an attribute on the windows
+=item $attribute_name is name of an attribute on the windows
 
 =back
 
 =over
 
-Returns the set of values of this attribute from all known windows.
+=item Returns the set of values of this attribute from all known windows.
 
 =back
 
@@ -2397,9 +2393,9 @@ deprecated - use dragAndDrop instead
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$movements_string is offset in pixels from the current location to which the element should be moved, e.g., "+70,-300"
+=item $movements_string is offset in pixels from the current location to which the element should be moved, e.g., "+70,-300"
 
 =back
 
@@ -2419,7 +2415,7 @@ If the mouse speed is greater than the distance between the two dragged objects,
 
 =over
 
-$pixels is the number of pixels between "mousemove" events
+=item $pixels is the number of pixels between "mousemove" events
 
 =back
 
@@ -2436,7 +2432,7 @@ Returns the number of pixels between "mousemove" events during dragAndDrop comma
 
 =over
 
-Returns the number of pixels between "mousemove" events during dragAndDrop commands (default=10)
+=item Returns the number of pixels between "mousemove" events during dragAndDrop commands (default=10)
 
 =back
 
@@ -2453,9 +2449,9 @@ Drags an element a certain distance and then drops it
 
 =over
 
-$locator is an element locator
+=item $locator is an element locator
 
-$movements_string is offset in pixels from the current location to which the element should be moved, e.g., "+70,-300"
+=item $movements_string is offset in pixels from the current location to which the element should be moved, e.g., "+70,-300"
 
 =back
 
@@ -2472,9 +2468,9 @@ Drags an element and drops it on another element
 
 =over
 
-$locator_of_object_to_be_dragged is an element to be dragged
+=item $locator_of_object_to_be_dragged is an element to be dragged
 
-$locator_of_drag_destination_object is an element whose location (i.e., whose center-most pixel) will be the point where locatorOfObjectToBeDragged  is dropped
+=item $locator_of_drag_destination_object is an element whose location (i.e., whose center-most pixel) will be the point where locatorOfObjectToBeDragged  is dropped
 
 =back
 
@@ -2513,7 +2509,7 @@ Returns the IDs of all windows that the browser knows about in an array.
 
 =over
 
-Returns Array of identifiers of all windows that the browser knows about.
+=item Returns Array of identifiers of all windows that the browser knows about.
 
 =back
 
@@ -2530,7 +2526,7 @@ Returns the names of all windows that the browser knows about in an array.
 
 =over
 
-Returns Array of names of all windows that the browser knows about.
+=item Returns Array of names of all windows that the browser knows about.
 
 =back
 
@@ -2547,7 +2543,7 @@ Returns the titles of all windows that the browser knows about in an array.
 
 =over
 
-Returns Array of titles of all windows that the browser knows about.
+=item Returns Array of titles of all windows that the browser knows about.
 
 =back
 
@@ -2564,7 +2560,7 @@ Returns the entire HTML source between the opening andclosing "html" tags.
 
 =over
 
-Returns the entire HTML source
+=item Returns the entire HTML source
 
 =back
 
@@ -2581,9 +2577,9 @@ Moves the text cursor to the specified position in the given input element or te
 
 =over
 
-$locator is an element locator pointing to an input element or textarea
+=item $locator is an element locator pointing to an input element or textarea
 
-$position is the numerical position of the cursor in the field; position should be 0 to move the position to the beginning of the field.  You can also set the cursor to -1 to move it to the end of the field.
+=item $position is the numerical position of the cursor in the field; position should be 0 to move the position to the beginning of the field.  You can also set the cursor to -1 to move it to the end of the field.
 
 =back
 
@@ -2600,13 +2596,13 @@ Get the relative index of an element to its parent (starting from 0). The commen
 
 =over
 
-$locator is an element locator pointing to an element
+=item $locator is an element locator pointing to an element
 
 =back
 
 =over
 
-Returns of relative index of the element to its parent (starting from 0)
+=item Returns of relative index of the element to its parent (starting from 0)
 
 =back
 
@@ -2623,15 +2619,15 @@ Check if these two elements have same parent and are ordered siblings in the DOM
 
 =over
 
-$locator1 is an element locator pointing to the first element
+=item $locator1 is an element locator pointing to the first element
 
-$locator2 is an element locator pointing to the second element
+=item $locator2 is an element locator pointing to the second element
 
 =back
 
 =over
 
-Returns true if element1 is the previous sibling of element2, false otherwise
+=item Returns true if element1 is the previous sibling of element2, false otherwise
 
 =back
 
@@ -2648,13 +2644,13 @@ Retrieves the horizontal position of an element
 
 =over
 
-$locator is an element locator pointing to an element OR an element itself
+=item $locator is an element locator pointing to an element OR an element itself
 
 =back
 
 =over
 
-Returns of pixels from the edge of the frame.
+=item Returns of pixels from the edge of the frame.
 
 =back
 
@@ -2671,13 +2667,13 @@ Retrieves the vertical position of an element
 
 =over
 
-$locator is an element locator pointing to an element OR an element itself
+=item $locator is an element locator pointing to an element OR an element itself
 
 =back
 
 =over
 
-Returns of pixels from the edge of the frame.
+=item Returns of pixels from the edge of the frame.
 
 =back
 
@@ -2694,13 +2690,13 @@ Retrieves the width of an element
 
 =over
 
-$locator is an element locator pointing to an element
+=item $locator is an element locator pointing to an element
 
 =back
 
 =over
 
-Returns width of an element in pixels
+=item Returns width of an element in pixels
 
 =back
 
@@ -2717,13 +2713,13 @@ Retrieves the height of an element
 
 =over
 
-$locator is an element locator pointing to an element
+=item $locator is an element locator pointing to an element
 
 =back
 
 =over
 
-Returns height of an element in pixels
+=item Returns height of an element in pixels
 
 =back
 
@@ -2742,13 +2738,13 @@ This method will fail if the specified element isn't an input element or textare
 
 =over
 
-$locator is an element locator pointing to an input element or textarea
+=item $locator is an element locator pointing to an input element or textarea
 
 =back
 
 =over
 
-Returns the numerical position of the cursor in the field
+=item Returns the numerical position of the cursor in the field
 
 =back
 
@@ -2766,13 +2762,13 @@ This is useful because of JavaScript preprocessing.It is used to generate comman
 
 =over
 
-$expression is the value to return
+=item $expression is the value to return
 
 =back
 
 =over
 
-Returns the value passed in
+=item Returns the value passed in
 
 =back
 
@@ -2789,13 +2785,13 @@ Returns the number of nodes that match the specified xpath, eg. "//table" would 
 
 =over
 
-$xpath is the xpath expression to evaluate. do NOT wrap this expression in a 'count()' function; we will do that for you.
+=item $xpath is the xpath expression to evaluate. do NOT wrap this expression in a 'count()' function; we will do that for you.
 
 =back
 
 =over
 
-Returns the number of nodes that match the specified xpath
+=item Returns the number of nodes that match the specified xpath
 
 =back
 
@@ -2812,9 +2808,9 @@ Temporarily sets the "id" attribute of the specified element, so you can locate 
 
 =over
 
-$locator is an element locator pointing to an element
+=item $locator is an element locator pointing to an element
 
-$identifier is a string to be used as the ID of the specified element
+=item $identifier is a string to be used as the ID of the specified element
 
 =back
 
@@ -2831,7 +2827,7 @@ Specifies whether Selenium should use the native in-browser implementationof XPa
 
 =over
 
-$allow is boolean, true means we'll prefer to use native XPath; false means we'll only use JS XPath
+=item $allow is boolean, true means we'll prefer to use native XPath; false means we'll only use JS XPath
 
 =back
 
@@ -2848,7 +2844,7 @@ Specifies whether Selenium will ignore xpath attributes that have novalue, i.e. 
 
 =over
 
-$ignore is boolean, true means we'll ignore attributes without value                        at the expense of xpath "correctness"; false means                        we'll sacrifice speed for correctness.
+=item $ignore is boolean, true means we'll ignore attributes without value                        at the expense of xpath "correctness"; false means                        we'll sacrifice speed for correctness.
 
 =back
 
@@ -2866,9 +2862,9 @@ Note that, by default, the snippet will be run in the runner's test window, not 
 
 =over
 
-$script is the JavaScript snippet to run
+=item $script is the JavaScript snippet to run
 
-$timeout is a timeout in milliseconds, after which this command will return with an error
+=item $timeout is a timeout in milliseconds, after which this command will return with an error
 
 =back
 
@@ -2889,7 +2885,7 @@ The default timeout is 30 seconds.
 
 =over
 
-$timeout is a timeout in milliseconds, after which the action will return with an error
+=item $timeout is a timeout in milliseconds, after which the action will return with an error
 
 =back
 
@@ -2911,7 +2907,7 @@ Selenium constantly keeps track of new pages loading, and sets a "newPageLoaded"
 
 =over
 
-$timeout is a timeout in milliseconds, after which this command will return with an error
+=item $timeout is a timeout in milliseconds, after which this command will return with an error
 
 =back
 
@@ -2932,9 +2928,9 @@ See waitForPageToLoad for more information.
 
 =over
 
-$frame_address is FrameAddress from the server side
+=item $frame_address is FrameAddress from the server side
 
-$timeout is a timeout in milliseconds, after which this command will return with an error
+=item $timeout is a timeout in milliseconds, after which this command will return with an error
 
 =back
 
@@ -2953,7 +2949,7 @@ Return all cookies of the current page under test.
 
 =over
 
-Returns all cookies of the current page under test
+=item Returns all cookies of the current page under test
 
 =back
 
@@ -2970,13 +2966,13 @@ Returns the value of the cookie with the specified name, or throws an error if t
 
 =over
 
-$name is the name of the cookie
+=item $name is the name of the cookie
 
 =back
 
 =over
 
-Returns the value of the cookie
+=item Returns the value of the cookie
 
 =back
 
@@ -2993,13 +2989,13 @@ Returns true if a cookie with the specified name is present, or false otherwise.
 
 =over
 
-$name is the name of the cookie
+=item $name is the name of the cookie
 
 =back
 
 =over
 
-Returns true if a cookie with the specified name is present, or false otherwise.
+=item Returns true if a cookie with the specified name is present, or false otherwise.
 
 =back
 
@@ -3016,9 +3012,9 @@ Create a new cookie whose path and domain are same with those of current pageund
 
 =over
 
-$name_value_pair is name and value of the cookie in a format "name=value"
+=item $name_value_pair is name and value of the cookie in a format "name=value"
 
-$options_string is options for the cookie. Currently supported options include 'path', 'max_age' and 'domain'.      the optionsString's format is "path=/path/, max_age=60, domain=.foo.com". The order of options are irrelevant, the unit      of the value of 'max_age' is second.  Note that specifying a domain that isn't a subset of the current domain will      usually fail.
+=item $options_string is options for the cookie. Currently supported options include 'path', 'max_age' and 'domain'.      the optionsString's format is "path=/path/, max_age=60, domain=.foo.com". The order of options are irrelevant, the unit      of the value of 'max_age' is second.  Note that specifying a domain that isn't a subset of the current domain will      usually fail.
 
 =back
 
@@ -3035,9 +3031,9 @@ Delete a named cookie with specified path and domain.  Be careful; to delete a c
 
 =over
 
-$name is the name of the cookie to be deleted
+=item $name is the name of the cookie to be deleted
 
-$options_string is options for the cookie. Currently supported options include 'path', 'domain'      and 'recurse.' The optionsString's format is "path=/path/, domain=.foo.com, recurse=true".      The order of options are irrelevant. Note that specifying a domain that isn't a subset of      the current domain will usually fail.
+=item $options_string is options for the cookie. Currently supported options include 'path', 'domain'      and 'recurse.' The optionsString's format is "path=/path/, domain=.foo.com, recurse=true".      The order of options are irrelevant. Note that specifying a domain that isn't a subset of      the current domain will usually fail.
 
 =back
 
@@ -3065,7 +3061,7 @@ Sets the threshold for browser-side logging messages; log messages beneath this 
 
 =over
 
-$log_level is one of the following: "debug", "info", "warn", "error" or "off"
+=item $log_level is one of the following: "debug", "info", "warn", "error" or "off"
 
 =back
 
@@ -3082,7 +3078,7 @@ Creates a new "script" tag in the body of the current test window, and adds the 
 
 =over
 
-$script is the JavaScript snippet to run
+=item $script is the JavaScript snippet to run
 
 =back
 
@@ -3117,7 +3113,7 @@ The function must return null if the element can't be found.
 
 =over
 
-$strategy_name is the name of the strategy to define; this should use only   letters [a-zA-Z] with no spaces or other punctuation.
+=item $strategy_name is the name of the strategy to define; this should use only   letters [a-zA-Z] with no spaces or other punctuation.
 
 =back
 
@@ -3134,12 +3130,15 @@ Saves the entire contents of the current window canvas to a PNG file.Contrast th
 
 =over
 
-$filename is the path to the file to persist the screenshot as. No                  filename extension will be appended by default.                  Directories will not be created if they do not exist,                    and an exception will be thrown, possibly by native                  code.
+=item $filename is the path to the file to persist the screenshot as. No filename extension will be appended by default.  Directories will not be created if they do not exist, and an exception will be thrown, possibly by native code.
 
-$kwargs is a kwargs string that modifies the way the screenshot                  is captured. Example: "background=#CCFFDD" .                  Currently valid options:                                     =item background
-                     
-the background CSS for the HTML document. This                     may be useful to set for capturing screenshots of                     less-than-ideal layouts, for example where absolute                     positioning causes the calculation of the canvas                     dimension to fail and a black background is exposed                     (possibly obscuring black text).
-                  
+=item $kwargs is a kwargs string that modifies the way the screenshot is captured. Example: "background=#CCFFDD". Currently valid options:                                     
+
+=over
+
+=item background the background CSS for the HTML document. This may be useful to set for capturing screenshots of less-than-ideal layouts, for example where absolute positioning causes the calculation of the canvas dimension to fail and a black background is exposed (possibly obscuring black text).
+
+=back
 
 =back
 
@@ -3156,9 +3155,9 @@ Executes a command rollup, which is a series of commands with a uniquename, and 
 
 =over
 
-$rollup_name is the name of the rollup command
+=item $rollup_name is the name of the rollup command
 
-$kwargs is keyword arguments string that influences how the                    rollup expands into commands
+=item $kwargs is keyword arguments string that influences how the                    rollup expands into commands
 
 =back
 
@@ -3175,9 +3174,9 @@ Loads script content into a new script tag in the Selenium document. Thisdiffers
 
 =over
 
-$script_content is the Javascript content of the script to add
+=item $script_content is the Javascript content of the script to add
 
-$script_tag_id is (optional) the id of the new script tag. If                       specified, and an element with this id already                       exists, this operation will fail.
+=item $script_tag_id is (optional) the id of the new script tag. If                       specified, and an element with this id already                       exists, this operation will fail.
 
 =back
 
@@ -3194,7 +3193,7 @@ Removes a script tag from the Selenium document identified by the givenid. Does 
 
 =over
 
-$script_tag_id is the id of the script element to remove.
+=item $script_tag_id is the id of the script element to remove.
 
 =back
 
@@ -3211,21 +3210,20 @@ Allows choice of one of the available libraries.
 
 =over
 
-$library_name is name of the desired library Only the following three can be chosen: 
+=item $library_name is name of the desired library Only the following three can be chosen: 
 
 =over
-
    
 =item *
 
 "ajaxslt" - Google's library
 
-   
+
 =item *
 
 "javascript-xpath" - Cybozu Labs' faster library
 
-   
+
 =item *
 
 "default" - The default library.  Currently the default library is "ajaxslt" .
@@ -3249,7 +3247,7 @@ Writes a message to the status bar and adds a note to the browser-sidelog.
 
 =over
 
-$context is the message to be sent to the browser
+=item $context is the message to be sent to the browser
 
 =back
 
@@ -3266,9 +3264,9 @@ Sets a file input (upload) field to the file listed in fileLocator
 
 =over
 
-$field_locator is an element locator
+=item $field_locator is an element locator
 
-$file_locator is a URL pointing to the specified file. Before the file  can be set in the input field (fieldLocator), Selenium RC may need to transfer the file    to the local machine before attaching the file in a web page form. This is common in selenium  grid configurations where the RC server driving the browser is not the same  machine that started the test.   Supported Browsers: Firefox ("*chrome") only.
+=item $file_locator is a URL pointing to the specified file. Before the file  can be set in the input field (fieldLocator), Selenium RC may need to transfer the file    to the local machine before attaching the file in a web page form. This is common in selenium  grid configurations where the RC server driving the browser is not the same  machine that started the test.   Supported Browsers: Firefox ("*chrome") only.
 
 =back
 
@@ -3285,7 +3283,7 @@ Captures a PNG screenshot to the specified file.
 
 =over
 
-$filename is the absolute path to the file to be written, e.g. "c:\blah\screenshot.png"
+=item $filename is the absolute path to the file to be written, e.g. "c:\blah\screenshot.png"
 
 =back
 
@@ -3302,7 +3300,7 @@ Capture a PNG screenshot.  It then returns the file as a base 64 encoded string.
 
 =over
 
-Returns The base 64 encoded string of the screen shot (PNG file)
+=item Returns The base 64 encoded string of the screen shot (PNG file)
 
 =back
 
@@ -3319,13 +3317,13 @@ Downloads a screenshot of the browser current window canvas to a based 64 encode
 
 =over
 
-$kwargs is A kwargs string that modifies the way the screenshot is captured. Example: "background=#CCFFDD". This may be useful to set for capturing screenshots of less-than-ideal layouts, for example where absolute positioning causes the calculation of the canvas dimension to fail and a black background is exposed  (possibly obscuring black text).
+=item $kwargs is A kwargs string that modifies the way the screenshot is captured. Example: "background=#CCFFDD". This may be useful to set for capturing screenshots of less-than-ideal layouts, for example where absolute positioning causes the calculation of the canvas dimension to fail and a black background is exposed  (possibly obscuring black text).
 
 =back
 
 =over
 
-Returns The base 64 encoded string of the page screenshot (PNG file)
+=item Returns The base 64 encoded string of the page screenshot (PNG file)
 
 =back
 
@@ -3353,7 +3351,7 @@ Retrieve the last messages logged on a specific remote control. Useful for error
 
 =over
 
-Returns The last N log messages as a multi-line string.
+=item Returns The last N log messages as a multi-line string.
 
 =back
 
@@ -3370,7 +3368,7 @@ Simulates a user pressing a key (without releasing it yet) by sending a native o
 
 =over
 
-$keycode is an integer keycode number corresponding to a java.awt.event.KeyEvent; note that Java keycodes are NOT the same thing as JavaScript keycodes!
+=item $keycode is an integer keycode number corresponding to a java.awt.event.KeyEvent; note that Java keycodes are NOT the same thing as JavaScript keycodes!
 
 =back
 
@@ -3387,7 +3385,7 @@ Simulates a user releasing a key by sending a native operating system keystroke.
 
 =over
 
-$keycode is an integer keycode number corresponding to a java.awt.event.KeyEvent; note that Java keycodes are NOT the same thing as JavaScript keycodes!
+=item $keycode is an integer keycode number corresponding to a java.awt.event.KeyEvent; note that Java keycodes are NOT the same thing as JavaScript keycodes!
 
 =back
 
@@ -3404,7 +3402,7 @@ Simulates a user pressing and releasing a key by sending a native operating syst
 
 =over
 
-$keycode is an integer keycode number corresponding to a java.awt.event.KeyEvent; note that Java keycodes are NOT the same thing as JavaScript keycodes!
+=item $keycode is an integer keycode number corresponding to a java.awt.event.KeyEvent; note that Java keycodes are NOT the same thing as JavaScript keycodes!
 
 =back
 
@@ -3445,7 +3443,7 @@ If an URL querystring is provided, this is checked as well.
 
 =over
 
-$expected_location is the location to match.  
+=item $expected_location is the location to match.  
 
 =back
 
@@ -3468,7 +3466,7 @@ Gets whether a toggle-button (checkbox/radio) is checked.  Fails if the specifie
 
 =over
 
-$locator is an element locator pointing to a checkbox or radio button.  
+=item $locator is an element locator pointing to a checkbox or radio button.  
 
 =back
 
@@ -3491,8 +3489,9 @@ See the select command for more information about option locators.
 
 =over
 
-$locator is an element locator.  
-$option_locator is an option locator, typically just an option label (e.g. "John Smith").  
+=item $locator is an element locator.  
+
+=item $option_locator is an option locator, typically just an option label (e.g. "John Smith").  
 
 =back
 
@@ -3519,7 +3518,7 @@ Gets all option labels for selected options in the specified select or multi-sel
 
 =over
 
-$locator is an element locator.  
+=item $locator is an element locator.  
 
 =back
 

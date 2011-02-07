@@ -466,11 +466,7 @@ sub pm_footer {
 Verify the location of the current page ends with the expected location.
 If an URL querystring is provided, this is checked as well.
 
-=over
-
 $expected_location is the location to match.  
-
-=back
 
 Note: This function is deprecated, use get_location() instead.
 
@@ -489,11 +485,7 @@ sub is_location {
 
 Gets whether a toggle-button (checkbox/radio) is checked.  Fails if the specified element doesn't exist or isn't a toggle-button.
 
-=over
-
 $locator is an element locator pointing to a checkbox or radio button.  
-
-=back
 
 Note: This function is deprecated, use is_checked() instead.
 
@@ -512,12 +504,8 @@ Verifies that the selected option of a drop-down satisfies the optionSpecifier.
 
 See the select command for more information about option locators.
 
-=over
-
 $locator is an element locator.  
 $option_locator is an option locator, typically just an option label (e.g. "John Smith").  
-
-=back
 
 Note: This function is deprecated, use the get_selected_*() methods instead.
 
@@ -540,11 +528,7 @@ sub is_selected {
 
 Gets all option labels for selected options in the specified select or multi-select element.
 
-=over
-
 $locator is an element locator.  
-
-=back
 
 Note: This function is deprecated, use get_selected_labels() instead.
 
