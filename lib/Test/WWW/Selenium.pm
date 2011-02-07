@@ -28,7 +28,7 @@ convenient testing functions.
                                       );
 
     # use special test wrappers around WWW::Selenium commands:
-    $sel->open_ok("http://www.google.com", "fetched G's site alright");
+    $sel->open_ok("http://www.google.com", undef, "fetched G's site alright");
     $sel->type_ok( "q", "hello world");
     $sel->click_ok("btnG");
     $sel->wait_for_page_to_load_ok(5000);
@@ -53,7 +53,7 @@ C<< <getter>_unlike >>) to check the value of the attribute.
 
 By calling the constructor with C<default_names> set to a true value your
 tests will be given a reasonable name should you choose not to provide
-one of your own.
+one of your own.  The test name should always be the third argument.
 
 =head1 ADDITIONAL METHODS
 
