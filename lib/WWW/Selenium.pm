@@ -3556,6 +3556,7 @@ sub get_absolute_location {
 
 sub DESTROY {
     my $self = shift;
+    local $@;
     $self->stop if $self->{auto_stop};
 }
 
