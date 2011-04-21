@@ -5,6 +5,14 @@ use lib 'lib';
 use Test::WWW::Selenium;
 use WWW::Selenium::Util qw(server_is_running);
 use Test::More;
+use FindBin qw($Bin);
+use File::Spec;
+
+# utf8 wide character in print warnings will dump to stdout if we don't change binmode
+my $builder = Test::More->builder;
+binmode $builder->output,         ':utf8';
+binmode $builder->failure_output, ':utf8';
+binmode $builder->todo_output,    ':utf8';
 
 my ($host, $port) = server_is_running();
 if ($host and $port) {
@@ -21,7 +29,7 @@ my $sel = Test::WWW::Selenium->new(
     browser     => "*mock",
     browser_url => "http://$host:$port",
 );
-$sel->open("/selenium-server/tests/html/test_i18n.html");
+$sel->open('file://' . File::Spec->catfile($Bin, 'files', 'test_i18n.html'));
 
 my $romance = "\x{00FC}\x{00F6}\x{00E4}\x{00DC}\x{00D6}\x{00C4} \x{00E7}\x{00E8}\x{00E9} \x{00BF}\x{00F1} \x{00E8}\x{00E0}\x{00F9}\x{00F2}";
 my $korean = "\x{C5F4}\x{C5D0}";
@@ -36,7 +44,7 @@ verify_text($japanese, "japanese");
 verify_text($dangerous, "dangerous");
 
 # todo: looks like destory() haven't been invoked $sel.stop() on linux, which
-# will left one firefox window not closed for each build running. 
+# will left one firefox window not closed for each build running.
 # Somebody who knows perl well please check this out!!
 $sel->stop();
 
