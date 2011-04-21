@@ -24,8 +24,11 @@ my $sel = Test::WWW::Selenium->new(
 );
 $sel->open("http://www.google.com/webhp");
 $sel->type("q", "hello world");
+$sel->pause(2000);
 $sel->click("btnG");
-$sel->wait_for_page_to_load(5000);
+# google search is now an ajax call.. no page to load!
+#$sel->wait_for_page_to_load(5000);
+$sel->pause(2000);
 $sel->title_like(qr/Google Search/);
 
 
