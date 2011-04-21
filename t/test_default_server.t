@@ -16,6 +16,8 @@
 use strict;
 use warnings;
 use lib 'lib';
+use FindBin qw($Bin);
+use File::Spec;
 use Test::WWW::Selenium;
 use WWW::Selenium::Util qw(server_is_running);
 use Test::More;
@@ -28,6 +30,7 @@ else {
     plan skip_all => "No selenium server found!";
     exit 0;
 }
+my $test_click_page1 = File::Spec->catfile($Bin, 'files', 'test_click_page1.html');
 
 Regular_test: {
     my $sel = Test::WWW::Selenium->new(
@@ -37,17 +40,17 @@ Regular_test: {
         browser_url => "http://$host:$port",
         verbose => 1,
     );
-    $sel->open_ok("/selenium-server/tests/html/test_click_page1.html");
+    $sel->open_ok("file://" . $test_click_page1);
     $sel->text_like("link", qr/Click here for next page/, "link contains expected text");
     my @links = $sel->get_all_links();
     ok(@links > 3);
     is($links[3], "linkToAnchorOnThisPage");
     $sel->click("link");
     $sel->wait_for_page_to_load(5000);
-    $sel->location_like(qr"/selenium-server/tests/html/test_click_page2.html");
+    $sel->location_like(qr/test_click_page2\.html/);
     $sel->click("previousPage");
     $sel->wait_for_page_to_load(5000);
-    $sel->location_like(qr"/selenium-server/tests/html/test_click_page1.html");
+    $sel->location_like(qr/test_click_page1\.html/);
 }
 
 HTTP_GET: {
@@ -59,5 +62,5 @@ HTTP_GET: {
         http_method => 'GET',
         verbose => 1,
     );
-    $sel->open_ok("/selenium-server/tests/html/test_click_page1.html");
+    $sel->open_ok("file://" . $test_click_page1);
 }
