@@ -25,8 +25,6 @@ use Time::HiRes qw(sleep);
 use strict;
 use warnings;
 
-our $VERSION = '1.25';
-
 =head1 NAME
 
 WWW::Selenium - Perl Client for the Selenium Remote Control test tool

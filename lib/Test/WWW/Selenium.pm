@@ -4,8 +4,6 @@ use strict;
 use base qw(WWW::Selenium);
 use Carp qw(croak);
 
-our $VERSION = '1.25';
-
 =head1 NAME
 
 Test::WWW::Selenium - Test applications using Selenium Remote Control
