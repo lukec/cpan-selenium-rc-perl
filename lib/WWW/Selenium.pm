@@ -13,8 +13,9 @@
 #  limitations under the License.
 #
 
-
 package WWW::Selenium;
+# ABSTRACT: Perl Client for the Selenium Remote Control test tool
+
 use LWP::UserAgent;
 use HTTP::Request;
 use HTTP::Headers;
@@ -3567,30 +3568,34 @@ __END__
 For more information about Selenium Remote Control, visit the website
 at L<http://www.openqa.org/selenium-rc/>.
 
+Selenium Remote Control maintained by Dan Fabulich <dfabulich@warpmail.net>
+
 =head1 BUGS
 
 The Selenium Remote Control JIRA issue tracking system is available
 online at L<http://jira.openqa.org/browse/SRC>.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Perl driver maintained by Luke Closs <selenium-rc@awesnob.com>
+=over 4
 
-Selenium Remote Control maintained by Dan Fabulich <dfabulich@warpmail.net>
+=item *
 
-=head1 LICENSE
+Maintained by: Matt Phillips <mattp@cpan.org>, Luke Closs <lukec@cpan.org>
 
-Copyright (c) 2006 ThoughtWorks, Inc
+=item *
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+Originally by Mattia Barbon <mbarbon@cpan.org>
 
-     http://www.apache.org/licenses/LICENSE-2.0
+=back
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2006 by ThoughtWorks, Inc.
+
+This is free software, licensed under:
+
+  The Apache License, Version 2.0, January 2004
+
+=cut
 

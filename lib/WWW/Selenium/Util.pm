@@ -1,4 +1,6 @@
 package WWW::Selenium::Util;
+# ABSTRACT: Utility code to help test using Selenium
+
 use strict;
 use warnings;
 use IO::Socket;
