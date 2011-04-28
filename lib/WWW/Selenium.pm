@@ -32,13 +32,13 @@ WWW::Selenium - Perl Client for the Selenium Remote Control test tool
 =head1 SYNOPSIS
 
     use WWW::Selenium;
-    
-    my $sel = WWW::Selenium->new( host => "localhost", 
-                                  port => 4444, 
-                                  browser => "*iexplore", 
+
+    my $sel = WWW::Selenium->new( host => "localhost",
+                                  port => 4444,
+                                  browser => "*iexplore",
                                   browser_url => "http://www.google.com",
                                 );
-    
+
     $sel->start;
     $sel->open("http://www.google.com");
     $sel->type("q", "hello world");
@@ -205,7 +205,7 @@ css=span#firstChild + span
 
 =back
 
-Currently the css selector locator supports all css1, css2 and css3 selectors except namespace in css3, some pseudo classes(:nth-of-type, :nth-last-of-type, :first-of-type, :last-of-type, :only-of-type, :visited, :hover, :active, :focus, :indeterminate) and pseudo elements(::first-line, ::first-letter, ::selection, ::before, ::after). 
+Currently the css selector locator supports all css1, css2 and css3 selectors except namespace in css3, some pseudo classes(:nth-of-type, :nth-last-of-type, :first-of-type, :last-of-type, :only-of-type, :visited, :hover, :active, :focus, :indeterminate) and pseudo elements(::first-line, ::first-letter, ::selection, ::before, ::after).
 
 =item *
 
@@ -355,7 +355,7 @@ This profile will be automatically configured to use the Selenium
 Server as a proxy and to have all annoying prompts
 ("save your password?" "forms are insecure" "make Firefox your default
 browser?" disabled.  You may optionally specify
-an absolute path to your firefox executable, or just say "*firefox". 
+an absolute path to your firefox executable, or just say "*firefox".
 If no absolute path is specified, we'll look for
 firefox.exe in a default location (normally c:\program files\mozilla
 firefox\firefox.exe), which you can override by
@@ -370,7 +370,7 @@ This process will be automatically configured to use the Selenium
 Server as a proxy and to have all annoying prompts
 ("save your password?" "forms are insecure" "make Firefox your default
 browser?" disabled.  You may optionally specify
-an absolute path to your iexplore executable, or just say "*iexplore". 
+an absolute path to your iexplore executable, or just say "*iexplore".
 If no absolute path is specified, we'll look for
 iexplore.exe in a default location (normally c:\program files\internet
 explorer\iexplore.exe), which you can override by
@@ -430,8 +430,8 @@ sub new {
 sub start {
     my $self = shift;
     return if $self->{session_id};
-    $self->{session_id} = $self->get_string("getNewBrowserSession", 
-                                            $self->{browser_start_command}, 
+    $self->{session_id} = $self->get_string("getNewBrowserSession",
+                                            $self->{browser_start_command},
                                             $self->{browser_url});
 }
 
@@ -472,9 +472,9 @@ sub do_command {
     if (defined $self->{session_id}) {
         $$params .= "&sessionId=$self->{session_id}";
     }
-    # We use the full version of LWP to make sure we issue an 
+    # We use the full version of LWP to make sure we issue an
     # HTTP 1.1 request (SRC-25)
-    
+
     my $method = $get ? 'GET' : 'POST';
     print "---> Requesting $method $fullurl ($content)\n" if $self->{verbose};
     my $header = HTTP::Headers->new(
@@ -482,7 +482,7 @@ sub do_command {
             Content_Type => 'application/x-www-form-urlencoded; charset=utf-8'
         )
     );
-    my $response = $self->ua->request( 
+    my $response = $self->ua->request(
         HTTP::Request->new($method => $fullurl, $header, $content) );
     my $result;
     if ($response->is_success) {
@@ -1734,7 +1734,7 @@ sub get_alert {
 =item $sel-E<gt>get_confirmation()
 
 Retrieves the message of a JavaScript confirmation dialog generated duringthe previous action.
-By default, the confirm function will return true, having the same effectas manually clicking OK. This can be changed by prior execution of thechooseCancelOnNextConfirmation command. 
+By default, the confirm function will return true, having the same effectas manually clicking OK. This can be changed by prior execution of thechooseCancelOnNextConfirmation command.
 
 If an confirmation is generated but you do not consume it with getConfirmation,the next Selenium action will fail.
 
@@ -2842,7 +2842,7 @@ Specifies whether Selenium will ignore xpath attributes that have novalue, i.e. 
 
 =over
 
-=item $ignore is boolean, true means we'll ignore attributes without value                        at the expense of xpath "correctness"; false means                        we'll sacrifice speed for correctness.
+=item $ignore is boolean, true means we'll ignore attributes without value at the expense of xpath "correctness"; false means we'll sacrifice speed for correctness.
 
 =back
 
@@ -2856,7 +2856,7 @@ sub ignore_attributes_without_value {
 =item $sel-E<gt>wait_for_condition($script, $timeout)
 
 Runs the specified JavaScript snippet repeatedly until it evaluates to "true".The snippet may have multiple lines, but only the result of the last linewill be considered.
-Note that, by default, the snippet will be run in the runner's test window, not in the windowof your application.  To get the window of your application, you can usethe JavaScript snippet C<selenium.browserbot.getCurrentWindow()>, and thenrun your JavaScript in there
+Note that, by default, the snippet will be run in the runner's test window, not in the windowof your application. To get the window of your application, you can usethe JavaScript snippet C<selenium.browserbot.getCurrentWindow()>, and thenrun your JavaScript in there
 
 =over
 
@@ -3130,7 +3130,7 @@ Saves the entire contents of the current window canvas to a PNG file.Contrast th
 
 =item $filename is the path to the file to persist the screenshot as. No filename extension will be appended by default.  Directories will not be created if they do not exist, and an exception will be thrown, possibly by native code.
 
-=item $kwargs is a kwargs string that modifies the way the screenshot is captured. Example: "background=#CCFFDD". Currently valid options:                                     
+=item $kwargs is a kwargs string that modifies the way the screenshot is captured. Example: "background=#CCFFDD". Currently valid options:
 
 =over
 
@@ -3155,7 +3155,7 @@ Executes a command rollup, which is a series of commands with a uniquename, and 
 
 =item $rollup_name is the name of the rollup command
 
-=item $kwargs is keyword arguments string that influences how the                    rollup expands into commands
+=item $kwargs is keyword arguments string that influences how the rollup expands into commands
 
 =back
 
@@ -3168,13 +3168,13 @@ sub rollup {
 
 =item $sel-E<gt>add_script($script_content, $script_tag_id)
 
-Loads script content into a new script tag in the Selenium document. Thisdiffers from the runScript command in that runScript adds the script tagto the document of the AUT, not the Selenium document. The followingentities in the script content are replaced by the characters theyrepresent:    &lt;    &gt;    &amp;The corresponding remove command is removeScript.
+Loads script content into a new script tag in the Selenium document. Thisdiffers from the runScript command in that runScript adds the script tagto the document of the AUT, not the Selenium document. The followingentities in the script content are replaced by the characters they represent: &lt; &gt; &amp;The corresponding remove command is removeScript.
 
 =over
 
 =item $script_content is the Javascript content of the script to add
 
-=item $script_tag_id is (optional) the id of the new script tag. If                       specified, and an element with this id already                       exists, this operation will fail.
+=item $script_tag_id is (optional) the id of the new script tag. If specified, and an element with this id already exists, this operation will fail.
 
 =back
 
@@ -3208,10 +3208,10 @@ Allows choice of one of the available libraries.
 
 =over
 
-=item $library_name is name of the desired library Only the following three can be chosen: 
+=item $library_name is name of the desired library Only the following three can be chosen:
 
 =over
-   
+
 =item *
 
 "ajaxslt" - Google's library
@@ -3264,7 +3264,7 @@ Sets a file input (upload) field to the file listed in fileLocator
 
 =item $field_locator is an element locator
 
-=item $file_locator is a URL pointing to the specified file. Before the file  can be set in the input field (fieldLocator), Selenium RC may need to transfer the file    to the local machine before attaching the file in a web page form. This is common in selenium  grid configurations where the RC server driving the browser is not the same  machine that started the test.   Supported Browsers: Firefox ("*chrome") only.
+=item $file_locator is a URL pointing to the specified file. Before the file  can be set in the input field (fieldLocator), Selenium RC may need to transfer the file to the local machine before attaching the file in a web page form. This is common in selenium  grid configurations where the RC server driving the browser is not the same  machine that started the test. Supported Browsers: Firefox ("*chrome") only.
 
 =back
 
@@ -3441,7 +3441,7 @@ If an URL querystring is provided, this is checked as well.
 
 =over
 
-=item $expected_location is the location to match.  
+=item $expected_location is the location to match.
 
 =back
 
@@ -3464,7 +3464,7 @@ Gets whether a toggle-button (checkbox/radio) is checked.  Fails if the specifie
 
 =over
 
-=item $locator is an element locator pointing to a checkbox or radio button.  
+=item $locator is an element locator pointing to a checkbox or radio button.
 
 =back
 
@@ -3487,9 +3487,9 @@ See the select command for more information about option locators.
 
 =over
 
-=item $locator is an element locator.  
+=item $locator is an element locator.
 
-=item $option_locator is an option locator, typically just an option label (e.g. "John Smith").  
+=item $option_locator is an option locator, typically just an option label (e.g. "John Smith").
 
 =back
 
@@ -3516,7 +3516,7 @@ Gets all option labels for selected options in the specified select or multi-sel
 
 =over
 
-=item $locator is an element locator.  
+=item $locator is an element locator.
 
 =back
 

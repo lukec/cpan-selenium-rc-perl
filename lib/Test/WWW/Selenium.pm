@@ -68,9 +68,9 @@ _is, _like, ... methods.
 =item error_callback
 
 Sets the method to use when a corresponding selenium test is called and fails.
-For example if you call text_like(...) and it fails the sub defined in the 
+For example if you call text_like(...) and it fails the sub defined in the
 error_callback will be called. This allows you to perform various tasks to
-obtain additional details that occured when obtianing the error. If this is 
+obtain additional details that occured when obtianing the error. If this is
 set to undef then the callback will not be issued.
 
 =back
@@ -124,7 +124,7 @@ sub AUTOLOAD {
                 my( $self, $str, $name ) = @_;
                 diag "Test::WWW::Selenium running $getter (@_[1..$#_])"
                     if $self->{verbose};
-                $name = "$getter, '$str'" 
+                $name = "$getter, '$str'"
                     if $self->{default_names} and !defined $name;
                 no strict 'refs';
                 my $rc = $Test->$comparator( $self->$getter, $str, $name );
@@ -139,7 +139,7 @@ sub AUTOLOAD {
                 my( $self, $locator, $str, $name ) = @_;
                 diag "Test::WWW::Selenium running $getter (@_[1..$#_])"
                     if $self->{verbose};
-                $name = "$getter, $locator, '$str'" 
+                $name = "$getter, $locator, '$str'"
                     if $self->{default_names} and !defined $name;
                 no strict 'refs';
                 my $rc = $Test->$comparator( $self->$getter($locator), $str, $name );
@@ -197,7 +197,7 @@ sub AUTOLOAD {
 
 sub new {
     my ($class, %opts) = @_;
-    my $default_names = defined $opts{default_names} ? 
+    my $default_names = defined $opts{default_names} ?
                             delete $opts{default_names} : 1;
     my $error_callback = defined $opts{error_callback} ?
 	                    delete $opts{error_callback} : undef;
