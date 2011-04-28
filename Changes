@@ -1,6 +1,6 @@
 Revision history for Perl extension Test::WWW::Selenium.
 
-1.25 - Not yet released
+{{$NEXT}}
   - Bumped WWW::Selenium version - thanks Leah K.
   - Localize $@ during destruction so we do not clobber it. Reported by Jason S
   - Testsuite fully passing again with latest SeleniumRC (1.0.3)
