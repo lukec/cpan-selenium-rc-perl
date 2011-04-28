@@ -1,5 +1,5 @@
 package Test::WWW::Selenium;
-
+# ABSTRACT: Test applications using Selenium Remote Control
 use strict;
 use base qw(WWW::Selenium);
 use Carp qw(croak);
@@ -222,15 +222,30 @@ __END__
 
 =head1 AUTHORS
 
-Maintained by Luke Closs <lukec@cpan.org>
+=over 4
+
+=item *
+
+Maintained by: Matt Phillips <mattp@cpan.org>, Luke Closs <lukec@cpan.org>
+
+=item *
 
 Originally by Mattia Barbon <mbarbon@cpan.org>
 
-Other contributors: Dan Dascalescu, Scott McWhirter.
+=back
 
-=head1 LICENSE
+=head1 CONTRIBUTORS
+
+Dan Dascalescu
+
+Scott McWhirter
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2011 Matt Phillips <mattp@cpan.org>
 
 Copyright (c) 2006 Luke Closs <lukec@cpan.org>
+
 Copyright (c) 2005, 2006 Mattia Barbon <mbarbon@cpan.org>
 
 This program is free software; you can redistribute it and/or
