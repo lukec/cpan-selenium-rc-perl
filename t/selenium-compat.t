@@ -4,7 +4,7 @@ use warnings;
 use Test::More tests => 27;
 use Test::Exception;
 
-# The purpose of these tests are to ensure that WWW::Selenium does not 
+# The purpose of these tests are to ensure that WWW::Selenium does not
 # break backwards compatibility with previously released versions.
 
 BEGIN {
@@ -113,7 +113,7 @@ Get_selected_options: {
 
     Two_selected: {
         $sel->_set_mock_response_content('first response,second');
-        is_deeply [$sel->get_selected_options('id=foo')], 
+        is_deeply [$sel->get_selected_options('id=foo')],
                   ['first response', 'second'];
     }
 }

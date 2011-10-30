@@ -11,7 +11,7 @@ my $iedoc = read_iedoc_xml();
 $iedoc =~ s{^<\?.+?<top>}{#}s; # strip the xml header
 
 $iedoc =~ s#\n##smg; # newlines shouldn't matter to them, but they do matter to us
-$iedoc = html2pod($iedoc); 
+$iedoc = html2pod($iedoc);
 
 $iedoc = strip_blockquotes($iedoc);
 
@@ -50,7 +50,7 @@ EOT
 my @functions = extract_functions($iedoc, $function_extras);
 
 my @extra_cmds = (
-    { 
+    {
         name => 'waitForTextPresent',
         params => '$text, $timeout',
         desc => 'Waits until $text is present in the html source',
@@ -63,9 +63,9 @@ my @extra_cmds = (
 );
 
 # Print Selenium.pm
-write_file("lib/WWW/Selenium.pm", join('', pm_header(), 
-                                           $selenium_description, 
-                                           pm_constructor(), 
+write_file("lib/WWW/Selenium.pm", join('', pm_header(),
+                                           $selenium_description,
+                                           pm_constructor(),
                                            map({ $_->{text} } @functions),
                                            map({create_function(%$_)} @extra_cmds),
                                            pm_footer() ) );
@@ -113,13 +113,13 @@ WWW::Selenium - Perl Client for the Selenium Remote Control test tool
 =head1 SYNOPSIS
 
     use WWW::Selenium;
-    
-    my $sel = WWW::Selenium->new( host => "localhost", 
-                                  port => 4444, 
-                                  browser => "*iexplore", 
+
+    my $sel = WWW::Selenium->new( host => "localhost",
+                                  port => 4444,
+                                  browser => "*iexplore",
                                   browser_url => "http://www.google.com",
                                 );
-    
+
     $sel->start;
     $sel->open("http://www.google.com");
     $sel->type("q", "hello world");
@@ -212,7 +212,7 @@ This profile will be automatically configured to use the Selenium
 Server as a proxy and to have all annoying prompts
 ("save your password?" "forms are insecure" "make Firefox your default
 browser?" disabled.  You may optionally specify
-an absolute path to your firefox executable, or just say "*firefox". 
+an absolute path to your firefox executable, or just say "*firefox".
 If no absolute path is specified, we'll look for
 firefox.exe in a default location (normally c:\program files\mozilla
 firefox\firefox.exe), which you can override by
@@ -227,7 +227,7 @@ This process will be automatically configured to use the Selenium
 Server as a proxy and to have all annoying prompts
 ("save your password?" "forms are insecure" "make Firefox your default
 browser?" disabled.  You may optionally specify
-an absolute path to your iexplore executable, or just say "*iexplore". 
+an absolute path to your iexplore executable, or just say "*iexplore".
 If no absolute path is specified, we'll look for
 iexplore.exe in a default location (normally c:\program files\internet
 explorer\iexplore.exe), which you can override by
@@ -287,8 +287,8 @@ sub new {
 sub start {
     my $self = shift;
     return if $self->{session_id};
-    $self->{session_id} = $self->get_string("getNewBrowserSession", 
-                                            $self->{browser_start_command}, 
+    $self->{session_id} = $self->get_string("getNewBrowserSession",
+                                            $self->{browser_start_command},
                                             $self->{browser_url});
 }
 
@@ -329,9 +329,9 @@ sub do_command {
     if (defined $self->{session_id}) {
         $$params .= "&sessionId=$self->{session_id}";
     }
-    # We use the full version of LWP to make sure we issue an 
+    # We use the full version of LWP to make sure we issue an
     # HTTP 1.1 request (SRC-25)
-    
+
     my $method = $get ? 'GET' : 'POST';
     print "---> Requesting $method $fullurl ($content)\n" if $self->{verbose};
     my $header = HTTP::Headers->new(
@@ -339,7 +339,7 @@ sub do_command {
             Content_Type => 'application/x-www-form-urlencoded; charset=utf-8'
         )
     );
-    my $response = $self->ua->request( 
+    my $response = $self->ua->request(
         HTTP::Request->new($method => $fullurl, $header, $content) );
     my $result;
     if ($response->is_success) {
@@ -466,7 +466,7 @@ sub pm_footer {
 Verify the location of the current page ends with the expected location.
 If an URL querystring is provided, this is checked as well.
 
-$expected_location is the location to match.  
+$expected_location is the location to match.
 
 Note: This function is deprecated, use get_location() instead.
 
@@ -485,7 +485,7 @@ sub is_location {
 
 Gets whether a toggle-button (checkbox/radio) is checked.  Fails if the specified element doesn't exist or isn't a toggle-button.
 
-$locator is an element locator pointing to a checkbox or radio button.  
+$locator is an element locator pointing to a checkbox or radio button.
 
 Note: This function is deprecated, use is_checked() instead.
 
@@ -504,8 +504,8 @@ Verifies that the selected option of a drop-down satisfies the optionSpecifier.
 
 See the select command for more information about option locators.
 
-$locator is an element locator.  
-$option_locator is an option locator, typically just an option label (e.g. "John Smith").  
+$locator is an element locator.
+$option_locator is an option locator, typically just an option label (e.g. "John Smith").
 
 Note: This function is deprecated, use the get_selected_*() methods instead.
 
@@ -528,7 +528,7 @@ sub is_selected {
 
 Gets all option labels for selected options in the specified select or multi-select element.
 
-$locator is an element locator.  
+$locator is an element locator.
 
 Note: This function is deprecated, use get_selected_labels() instead.
 

@@ -1,6 +1,6 @@
-Test-WWW-Selenium is a perl driver and test library for Selenium Remote 
-Control (SRC).  You will need to setup a Selenium Server that can launch 
-browsers.  
+Test-WWW-Selenium is a perl driver and test library for Selenium Remote
+Control (SRC).  You will need to setup a Selenium Server that can launch
+browsers.
 
 Selenium Remote Control (SRC) is a test tool that allows you to write
 automated web application UI tests in any programming language against
@@ -21,7 +21,7 @@ Selenium Server.  (The Selenium Server is a Java application.)
 The Selenium Server is available here:
 
   http://www.openqa.org/selenium-rc/
-  
+
 or on CPAN in the Alien-SeleniumRC package:
 
   http://search.cpan.org/dist/Alien-SeleniumRC

@@ -33,7 +33,7 @@ Revision history for Perl extension Test::WWW::Selenium.
 1.18 - Mon Aug 31 23:20:21 PDT 2009
   - Update list of commands that do not require a locator (barbie++)
   - Update Module::Install to 0.91
-  - Ensure that do_command reuses LWP objects and caches 
+  - Ensure that do_command reuses LWP objects and caches
     connections for performance (konobi++)
   - Minor POD touchups by (dandv++)
 
@@ -99,7 +99,7 @@ Revision history for Perl extension Test::WWW::Selenium.
 
 1.03 - Tue Jun 27 22:47:43 PDT 2006
  - Unit tests don't test stderr using Test::Builder::Tester
- - When the Test-Simple folks get T::B::Tester working better I'll 
+ - When the Test-Simple folks get T::B::Tester working better I'll
    re-enable these tests
 
 1.02 - Sat Jun 24 17:25:35 PDT 2006
@@ -111,9 +111,9 @@ Revision history for Perl extension Test::WWW::Selenium.
  - failed action_ok() doesn't die anymore, the test just fails
 
 1.01 - Thu Jun 22 13:57:33 PDT 2006
- - No longer call WWW::Selenium::AUTOLOAD if method can't be 
+ - No longer call WWW::Selenium::AUTOLOAD if method can't be
    found (rt bug #20042)
- - Update sample Test::WWW::Selenium code to actually work 
+ - Update sample Test::WWW::Selenium code to actually work
    (Thanks, Shane Landrum)
 
 1.00 - Mon Jun 12 08:53:18 PDT 2006
@@ -166,7 +166,7 @@ Revision history for Perl extension Test::WWW::Selenium.
     - minor testing improvements
 
 0.06  Thu Mar  9 00:01:34 PST 2006
-    - Added descriptive png images to doc/ 
+    - Added descriptive png images to doc/
     - Added support for CGI driver to store/retrive commands and results
     - Added script to convert a wiki syntax file into a perl script
 

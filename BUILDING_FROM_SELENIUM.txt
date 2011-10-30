@@ -5,7 +5,7 @@ version control.  To create this file, follow these steps:
 1) Find a iedoc.xml, and put it in the perl/ directory.
    To download and extract iedoc.xml from the latest nightly selenium-core
    build, run:
-   
+
      perl util/fetch_iedoc_xml.pl
 
 2) Generate lib/WWW/Selenium.pm and t/selenium-core.t from iedoc.xml:
