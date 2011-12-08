@@ -3,6 +3,7 @@ package Test::WWW::Selenium;
 use strict;
 use base qw(WWW::Selenium);
 use Carp qw(croak);
+use Devel::REPL;
 
 =head1 NAME
 
@@ -214,6 +215,29 @@ sub error_callback {
         $self->{error_callback} = $cb;
     }
     return $self->{error_callback};
+}
+
+=item $sel-E<gt>debug()
+
+Starts an interactive shell to pass commands to Selenium.
+
+Commands are run against the selenium object, so you just need to type:
+
+=over
+
+=item eg: click("link=edit")
+
+=back
+
+=cut
+
+sub debug {
+    my $self = shift;
+    my $repl = Devel::REPL->new(prompt => 'Selenium$ ');
+    $repl->load_plugin($_) for qw/History LexEnv Colors Selenium Interrupt/;
+    $repl->selenium($self);
+    $repl->lexical_environment->do($repl->selenium_lex_env);
+    $repl->run;
 }
 
 1;
