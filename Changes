@@ -1,6 +1,6 @@
 Revision history for Perl extension Test::WWW::Selenium.
 
-1.30 - Not yet released
+-{{$NEXT}}
   - Added ->debug(), an interactive debugger.
 
 1.25 - Wed Apr 27 23:47:49 EDT 2011
