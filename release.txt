@@ -1,0 +1,34 @@
+ Dist::Zilla is actually pretty easy to use once you get the toolchain
+ actually installed. After you get Dist::Zilla itself installed, from
+ cpan-selenium-rc-perl run `dzil authordeps | cpanm`, this will install all
+ the required modules for doing a release.
+
+Next, create a ~/.dzil/config.ini
+
+[~/projects/cpan-selenium-rc-perl (master)↑] $ cat
+~/.dzil/config.ini          
+[%User]
+name  = Matt Phillips
+email = mattp@cpan.org
+
+[%Rights]
+license_class    = Perl_5
+copyright_holder = Matt Phillips
+
+[%PAUSE]
+username = MATTP
+password = password
+
+This is for cpan uploading and subbing your name into the auto generated pod.
+
+`dzil build`    will build the tar.gz that will be uploaded to cpan before
+                release so you can inspect.
+`dzil test`     runs the test suite on a build
+`dzil release`  uses your config.ini to automatically upload the configured 
+                build to cpan.
+
+I believe the majority of seleniums current dist.ini is based off of David
+Golden's plugin bundle:
+https://metacpan.org/module/Dist::Zilla::PluginBundle::DAGOLDEN You'll have to
+go through to see what the individual plugins do - all in all, pretty useful
+stuff.
