@@ -217,13 +217,13 @@ sub error_callback {
     return $self->{error_callback};
 }
 
+=over 4
+
 =item $sel-E<gt>debug()
 
 Starts an interactive shell to pass commands to Selenium.
 
 Commands are run against the selenium object, so you just need to type:
-
-=over
 
 =item eg: click("link=edit")
 
