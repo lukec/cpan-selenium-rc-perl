@@ -9,7 +9,7 @@
 
 - fix google example to work in non-us countries
 
-- Change documentation 
+- Change documentation
   - to not use phrases like "We support"
   - to not say "never throws an exception"
 

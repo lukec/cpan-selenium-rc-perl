@@ -12,9 +12,9 @@ BEGIN {
 }
 
 Good_usage: {
-    my $sel = WWW::Selenium->new( host => 'localhost', 
-                                  port => 4444, 
-                                  browser => '*firefox', 
+    my $sel = WWW::Selenium->new( host => 'localhost',
+                                  port => 4444,
+                                  browser => '*firefox',
                                   browser_url => 'http://foo.com'
                                 );
     isa_ok $sel, 'WWW::Selenium';
@@ -75,7 +75,7 @@ Failing_command: {
     throws_ok { $sel->get_title } qr#Error: foo#;
     $Mock_resp->mock( content => sub { 'OK' } );
 }
- 
+
 Multi_values: {
     my $sel = WWW::Selenium->new( browser_url => 'http://foo.com' );
     $Mock_resp->mock( content => sub { 'OK,SESSION_ID' } );
@@ -92,7 +92,7 @@ Multi_values: {
                                 'c:\foo\bar',
                                 'c:\I came, I \saw\, I conquered',
                                ],
-            'one\\\\,two'    => ['one\\,two'], 
+            'one\\\\,two'    => ['one\\,two'],
             'one\\\\\\,two'  => ['one\\', 'two'],
     );
     my $tester = sub {

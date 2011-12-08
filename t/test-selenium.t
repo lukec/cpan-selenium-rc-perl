@@ -32,7 +32,7 @@ Good_usage: {
 
     Browser_gets_closed: {
         $Mock_resp->mock('content' => sub { 'OK' });
-        $sel = undef; 
+        $sel = undef;
         req_ok('cmd=testComplete&sessionId=SESSION_ID');
     }
 }
@@ -124,7 +124,7 @@ Commands: {
     $Mock_resp->mock('content' => sub { 'OK' });
 }
 
-no_locatior: { 
+no_locatior: {
     $Mock_resp->mock('content' => sub { 'OK,SESSION_ID' });
     for my $getter (qw(alert prompt location title)) {
         $Mock_resp->mock('content' => sub { 'OK,SESSION_ID' });
@@ -194,7 +194,7 @@ Relative_location: {
 Default_test_names: {
     Default_names_off: {
         $Mock_resp->mock('content' => sub { 'OK,SESSION_ID' });
-        my $sel = Test::WWW::Selenium->new(browser_url => 'http://foo.com', 
+        my $sel = Test::WWW::Selenium->new(browser_url => 'http://foo.com',
                                            default_names => 0);
         $sel->open;
         $Mock_resp->mock('content' => sub { 'OK' });
@@ -204,7 +204,7 @@ Default_test_names: {
     }
     Test_name_provided: {
         $Mock_resp->mock('content' => sub { 'OK,SESSION_ID' });
-        my $sel = Test::WWW::Selenium->new(browser_url => 'http://foo.com', 
+        my $sel = Test::WWW::Selenium->new(browser_url => 'http://foo.com',
                                            default_names => 1);
         $sel->open;
         $Mock_resp->mock('content' => sub { 'OK' });

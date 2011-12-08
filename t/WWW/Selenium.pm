@@ -11,9 +11,9 @@ my $ua_timeout = 180;
 sub new {
     my $class = shift;
     my %opts = (
-        host => 'localhost', 
-        port => 4444, 
-        browser => '*firefox', 
+        host => 'localhost',
+        port => 4444,
+        browser => '*firefox',
         browser_url => 'http://example.com',
         no_deprecation_msg => 1,
         @_,

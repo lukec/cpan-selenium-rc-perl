@@ -21,7 +21,7 @@ sub strip_blockquotes {
                        . "\n\n=back\n\n";
 
             # hack for Element Filters section - it's inconsistent with the
-            # other sections, and shouldn't be in a blockquote 
+            # other sections, and shouldn't be in a blockquote
             # Remove this once fixed
             if ($lines[0] =~ m/^Element filters can be used/) {
                 $new_text = "\n" . join("\n", @lines) . "\n";
@@ -40,7 +40,7 @@ sub html2pod {
     my $orig_text = $text;
     $text =~ s#<p>(.+?)</p>#\n$1\n#smg;             # p's should be spaced out a bit
     $text =~ s#^</?(?:p|dl)>##smg;                      # <p>s and <dl>s on their own line
-    $text =~ s#</?(?:p|dl)>##g;                         # <p>s and <dl>s 
+    $text =~ s#</?(?:p|dl)>##g;                         # <p>s and <dl>s
     $text =~ s#<a name="[^"]+">([^<]*)</a>#$1#g;        # don't need anchors
     $text =~ s#<h3>([^<]+)</h3>#\n\n=head3 $1\n\n#g;            # headings
     $text =~ s#<em>([^<]+)</em>#I<$1>#g;                # italics
@@ -92,8 +92,8 @@ sub extract_functions {
 
         $text = html2pod($text);
         $text =~ s#\n{2,}#\n\n#g;
-        push @functions, { 
-            name => $perl_name, 
+        push @functions, {
+            name => $perl_name,
             text => $text,
             return_type => $return_type,
             params => $params,
@@ -139,14 +139,14 @@ sub _extract_params {
         $name = camel2perl($name);
         push @params, { name => $name, desc => $desc };
     }
-    my $names = join ', ', 
-                  map { "\$$_->{name}" } 
+    my $names = join ', ',
+                  map { "\$$_->{name}" }
                     @params;
     my $desc = '';
     if (@params) {
         $desc = "=over\n\n"
-                . join("\n\n", 
-                    map { "\$$_->{name} is $_->{desc}" } 
+                . join("\n\n",
+                    map { "\$$_->{name} is $_->{desc}" }
                       @params)
                 . "\n\n=back\n";
     }
@@ -162,9 +162,9 @@ sub _extract_return_type {
     return ('', '');
 }
 
-sub camel2perl { 
-    my $n = shift; 
-    $n =~ s/([a-z]+)([A-Z]+)/"$1_" . lc($2)/eg; 
+sub camel2perl {
+    my $n = shift;
+    $n =~ s/([a-z]+)([A-Z]+)/"$1_" . lc($2)/eg;
     return $n;
 }
 
