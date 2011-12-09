@@ -1,5 +1,8 @@
 Revision history for Perl extension Test::WWW::Selenium.
 
+1.31 - Wed Dec  7 22:59:01 EST 2011
+  - pod parsing fix for metacpan.
+
 1.30 - Wed Dec  7 22:59:01 EST 2011
   - Added ->debug(), an interactive debugger.
 
