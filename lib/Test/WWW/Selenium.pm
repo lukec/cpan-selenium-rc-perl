@@ -3,7 +3,6 @@ package Test::WWW::Selenium;
 use strict;
 use base qw(WWW::Selenium);
 use Carp qw(croak);
-use Devel::REPL;
 
 =head1 NAME
 
@@ -233,6 +232,7 @@ Commands are run against the selenium object, so you just need to type:
 
 sub debug {
     my $self = shift;
+    require Devel::REPL;
     my $repl = Devel::REPL->new(prompt => 'Selenium$ ');
     $repl->load_plugin($_) for qw/History LexEnv Colors Selenium Interrupt/;
     $repl->selenium($self);
