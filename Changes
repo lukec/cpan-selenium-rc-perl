@@ -1,5 +1,8 @@
 Revision history for Perl extension Test::WWW::Selenium.
 
+1.32 - Tue Feb  7 19:55:00 PST 2012
+ - Make Devel::REPL a runtime requirement - thx haarg++
+
 1.31 - Wed Dec  7 22:59:01 EST 2011
   - pod parsing fix for metacpan.
 
