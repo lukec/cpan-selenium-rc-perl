@@ -22,7 +22,7 @@ my $sel = Test::WWW::Selenium->new(
     browser     => "*firefox",
     browser_url => "http://www.google.com/webhp",
 );
-$sel->open("http://www.google.com/webhp");
+$sel->open('http://www.google.com/webhp?hl=en');
 $sel->type("q", "hello world");
 $sel->pause(2000);
 $sel->click("btnG");
