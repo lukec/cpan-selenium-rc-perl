@@ -129,7 +129,7 @@ sub AUTOLOAD {
                 no strict 'refs';
                 my $rc = $Test->$comparator( $self->$getter, $str, $name );
                 if (!$rc && $self->error_callback) {
-                    &{$self->error_callback}($name);
+                    &{$self->error_callback}( $name, $self );
                 }
                 return $rc;
             };
@@ -144,7 +144,7 @@ sub AUTOLOAD {
                 no strict 'refs';
                 my $rc = $Test->$comparator( $self->$getter($locator), $str, $name );
                 if (!$rc && $self->error_callback) {
-                    &{$self->error_callback}($name);
+                    &{$self->error_callback}( $name, $self );
                 }
 		return $rc;
             };
@@ -171,7 +171,7 @@ sub AUTOLOAD {
             diag($@) if $@;
             $rc = ok( $rc, $name );
             if (!$rc && $self->error_callback) {
-                &{$self->error_callback}($name);
+                &{$self->error_callback}( $name, $self );
             }
             return $rc;
         };
