@@ -1,5 +1,10 @@
 Revision history for Perl extension Test::WWW::Selenium.
 
+1.34 - Tue Oct 30 13:22:59 EDT 2012
+ - Re-release using EU::MM to avoid Module::Install bug
+   see http://weblog.bulknews.net/post/33907905561/do-not-ship-modules-with-module-install-1-04
+   for details.
+
 1.32 - Tue Feb  7 19:55:00 PST 2012
  - Make Devel::REPL a runtime requirement - thx haarg++
 
