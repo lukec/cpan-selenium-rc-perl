@@ -1,5 +1,9 @@
 Revision history for Perl extension Test::WWW::Selenium.
 
+1.35 - Fri Jan  4 14:48:28 EST 2013
+ - Updates t/00-compile.t to ignore loading the Devel::REPL plugin, as its an
+   optional dependency.
+
 1.34 - Tue Oct 30 13:22:59 EDT 2012
  - Re-release using EU::MM to avoid Module::Install bug
    see http://weblog.bulknews.net/post/33907905561/do-not-ship-modules-with-module-install-1-04
