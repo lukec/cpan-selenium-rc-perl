@@ -1,4 +1,7 @@
 Revision history for Perl extension Test::WWW::Selenium.
+1.36 - Wed May 15 17:38:12 EDT 2013
+ - updates dist.ini to hide util with MetaNoIndex
+
 
 1.35 - Fri Jan  4 14:48:28 EST 2013
  - Updates t/00-compile.t to ignore loading the Devel::REPL plugin, as its an
