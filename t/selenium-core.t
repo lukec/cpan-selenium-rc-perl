@@ -127,6 +127,7 @@ $sel->_method_exists("get_element_height");
 $sel->_method_exists("get_cursor_position");
 $sel->_method_exists("get_expression");
 $sel->_method_exists("get_xpath_count");
+$sel->_method_exists("get_css_count");
 $sel->_method_exists("assign_id");
 $sel->_method_exists("allow_native_xpath");
 $sel->_method_exists("ignore_attributes_without_value");
