@@ -25,4 +25,4 @@ install:
 
 script:
 
-  - dzil smoke --release --author
+  - dzil test
