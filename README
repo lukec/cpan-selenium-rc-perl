@@ -20,7 +20,7 @@ Selenium Server.  (The Selenium Server is a Java application.)
 
 The Selenium Server is available here:
 
-  http://www.openqa.org/selenium-rc/
+  http://www.seleniumhq.org/download/
   
 or on CPAN in the Alien-SeleniumRC package:
 
