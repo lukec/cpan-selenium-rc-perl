@@ -1,4 +1,5 @@
-![Build Status](https://travis-ci.org/mrcaron/cpan-selenium-rc-perl.svg)
+
+[![Build Status](https://travis-ci.org/mrcaron/cpan-selenium-rc-perl.svg?branch=master)](https://travis-ci.org/mrcaron/cpan-selenium-rc-perl)
 
 # Overview
 
