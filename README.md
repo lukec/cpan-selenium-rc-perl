@@ -1,8 +1,13 @@
-Test-WWW-Selenium is a perl driver and test library for Selenium Remote 
+
+[![Build Status](https://travis-ci.org/mrcaron/cpan-selenium-rc-perl.svg?branch=master)](https://travis-ci.org/mrcaron/cpan-selenium-rc-perl)
+
+# Overview
+
+*Test-WWW-Selenium* is a perl driver and test library for Selenium Remote 
 Control (SRC).  You will need to setup a Selenium Server that can launch 
 browsers.  
 
-Selenium Remote Control (SRC) is a test tool that allows you to write
+*Selenium Remote Control (SRC)* is a test tool that allows you to write
 automated web application UI tests in any programming language against
 any HTTP website using any mainstream JavaScript-enabled browser.  SRC
 provides a Selenium Server, which can automatically start/stop/control
@@ -15,24 +20,27 @@ This module sends commands directly to the Server using simple HTTP
 GET/POST requests.  Using this module together with the Selenium
 Server, you can automatically control any supported browser.
 
+# Prereqs
+
 To use this module, you need to have already downloaded and started the
 Selenium Server.  (The Selenium Server is a Java application.)
 
 The Selenium Server is available here:
 
-  http://www.openqa.org/selenium-rc/
+  http://www.seleniumhq.org/download/
   
 or on CPAN in the Alien-SeleniumRC package:
 
   http://search.cpan.org/dist/Alien-SeleniumRC
 
-To install:
+# Installation
 
     perl Makefile.PL
     make
     make test
     make install
 
+# Usage 
 Once installed, your test script will look something like this:
 
     #!/usr/bin/perl
@@ -50,6 +58,7 @@ Once installed, your test script will look something like this:
     $sel->text_is('todays_awesomeness', '100');
     $sel->text_like('status', qr/returned 42 results/);
 
+# Fineprint
 
 Copyright (c) 2006 Luke Closs <lukec@cpan.org>.
 Copyright (c) 2006 Dan Fabulitch <dfabulich@warpmail.net>.
@@ -64,4 +73,3 @@ it under the Apache License, Version 2.0.
 
 This package is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
-
