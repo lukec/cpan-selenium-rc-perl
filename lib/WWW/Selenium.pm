@@ -522,21 +522,7 @@ sub get_string_array {
     my $result = $self->get_string(@_);
     my $token = "";
     my @tokens = ();
-    my @chars = split(//, $result);
-    for (my $i = 0; $i < @chars; $i++) {
-        my $char = $chars[$i];
-        if ($char eq '\\') {
-            $i++;
-            $char = $chars[$i];
-            $token .= $char;
-        } elsif ($char eq ',') {
-            push (@tokens, $token);
-            $token = "";
-        } else {
-            $token .= $char;
-        }
-    }
-    push (@tokens, $token);
+    @tokens = map {s/\\(.)/\1/g; $_} split /(?<!\\),/, $result;
     return @tokens;
 }
 
