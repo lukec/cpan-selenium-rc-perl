@@ -2801,6 +2801,29 @@ sub get_xpath_count {
     return $self->get_number("getXpathCount", @_);
 }
 
+=item $sel-E<gt>get_css_count($css)
+
+Returns the number of nodes that match the specified selector, eg. "css=table" would give the number of tables.
+
+=over
+
+=item $css is the css selector to evaluate. do NOT wrap this expression in a 'count()' function; we will do that for you..
+
+=back
+
+=over
+
+=item Returns the number of nodes that match the specified css selector
+
+=back
+
+=cut
+
+sub get_css_count {
+    my $self = shift;
+    return $self->get_number("getCssCount", @_);
+}
+
 =item $sel-E<gt>assign_id($locator, $identifier)
 
 Temporarily sets the "id" attribute of the specified element, so you can locate it in the futureusing its ID rather than a slow/complicated XPath.  This ID will disappear once the page isreloaded.
